@@ -1,8 +1,8 @@
 # EmojiCrush
 Commenting to be done in this format
 ```
-<summary>
-Definition of method/variable here
-</summary>
+/// <summary> 
+/// The explanation of the method/variable below should be written here
+/// </summary>
 GameObject example;
 ```
