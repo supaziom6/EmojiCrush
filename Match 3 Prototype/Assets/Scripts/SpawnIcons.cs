@@ -46,7 +46,7 @@ public class SpawnIcons : MonoBehaviour {
 			tileSize = (screenSize.y/BoardSize.y)*0.8f;
 		}
 		print(tileSize);
-		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2)+(screenSize.y*0.05f));
+		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2)+(screenSize.y*0.01f));
 		locationAndAmmountOfTilesToReplanish = new int[(int)BoardSize.x];
 
 		board = new GameObject[(int)BoardSize.x, (int)BoardSize.y*2];

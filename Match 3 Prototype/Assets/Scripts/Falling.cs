@@ -12,10 +12,17 @@ public class Falling : MonoBehaviour
     public float YPosition;
     public float rotation;
     public float Speed;
+    public static float[] bounds;
+
+    private Sprite currentSprite;
 
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite= Sprites[(Random.Range(0,Sprites.Length))];
+        bounds = new float[2];
+        bounds[0] = Camera.main.orthographicSize * 2.0f;
+        bounds[1] = bounds[0] * Camera.main.aspect;
+        currentSprite = Sprites[(Random.Range(0, Sprites.Length))];
+        GetComponent<SpriteRenderer>().sprite = currentSprite;
         if (Random.Range(0f, 1f) < 0.5f)
         {
             GoLeft = false;
@@ -34,13 +41,13 @@ public class Falling : MonoBehaviour
 
     void Update()
     {
-        if(Sprite.transform.position.y < -5.5)
+        if(Sprite.transform.position.y < -bounds[0]/2)
         {
             rotation = Random.Range(-40, 40);
             Sprite.transform.Rotate(0, 0, rotation);
             Xposition = Random.Range(-2.5f, 2.5f);
             Speed = Random.Range(1f, 4f);
-            Sprite.transform.position = startPos;
+            Sprite.transform.position = new Vector2 (startPos.x,bounds[0]/2 + 1);
         }
         Sprite.transform.Translate(Vector2.down * (Speed * Time.deltaTime), Space.World);
 
@@ -52,11 +59,12 @@ public class Falling : MonoBehaviour
         {
             Sprite.transform.Translate(Vector2.right * ((Speed * Random.Range(1f, 2f)) * Time.deltaTime), Space.World);
         }
-        if (Sprite.transform.position.x < -2.50)
+        print("Half the bounds"+ -bounds[1] / 2 + "Half the scaled Image size"+(currentSprite.bounds.size.x * transform.localScale.x));
+        if (Sprite.transform.position.x < -bounds[1]/2 + (currentSprite.bounds.size.x*transform.localScale.x))
         {
             GoLeft = false;
         }
-        if (Sprite.transform.position.x > 2.5)
+        if (Sprite.transform.position.x > bounds[1]/2 - (currentSprite.bounds.size.x*transform.localScale.x))
         {
             GoLeft = true;
         }
