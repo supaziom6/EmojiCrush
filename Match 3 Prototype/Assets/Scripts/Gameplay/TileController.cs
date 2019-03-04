@@ -5,36 +5,42 @@ using UnityEngine;
 public class TileController : MonoBehaviour {
 
 	// THis deleget will inform the main controller that the button has been pressed
+	[HideInInspector]
 	public delegate void INeedToPassMyInfo(GameObject g);
+	[HideInInspector]
 	public INeedToPassMyInfo IHaveBeenSelected;
+	[HideInInspector]
 	public Vector2 location;
+	[HideInInspector]
 	public bool scannedVertically;
+	[HideInInspector]
 	public bool scannedHorizontally;
+	[HideInInspector]
 	public float tileFallSpeed;
-	public bool tempFixForBrokenMovement;
+	[HideInInspector]
+	public TileType TT;
+	[HideInInspector]
+	public TileColor color;
 
-	void Start(){
-		tempFixForBrokenMovement = false;
+	void Awake(){
+		TT = GetComponent<EmojiType>().TT;
+		color = GetComponent<EmojiType>().TC;
 		tileFallSpeed = 20;
 		scannedHorizontally = false;
 		scannedVertically = false;
 	}
 
-	void FixedUpdate(){
-		if(SpawnIcons.AllowForMovement && location.y-1 >= 0 && SpawnIcons.board[(int)location.x,(int)location.y-1] == null)
+	public bool updateArrayPosition()
+	{
+		if(location.y-1 >= 0 && SpawnIcons.board[(int)location.x,(int)location.y-1] == null)
 		{
-			
 			SpawnIcons.board[(int)location.x,(int)location.y-1] = SpawnIcons.board[(int)location.x,(int)location.y];
 			SpawnIcons.board[(int)location.x,(int)location.y] = null;
 			location.y = location.y-1;
-			StopAllCoroutines();
-			StartCoroutine(MoveTileDown());
+			
+			return true;
 		}
-		if(tempFixForBrokenMovement){
-			Vector3 targetLocation = new Vector3 ((location.x*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.x,(location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y,transform.position.z);
-			transform.position = targetLocation;
-			tempFixForBrokenMovement = false;
-		}
+		return false;
 	}
 
 	public void updateTilePosition()
@@ -42,15 +48,15 @@ public class TileController : MonoBehaviour {
 		StartCoroutine(MoveTileIntoPosition());
 	}
 
-	IEnumerator MoveTileDown()
-	{
-		for(float i = transform.position.y; i >= (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y; i-= (tileFallSpeed/100))
-		{
-			transform.position = new Vector3(transform.position.x, i, transform.position.z);
-			yield return new WaitForSeconds(0.01f);
-		}
-		transform.position = new Vector3(transform.position.x, (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y, transform.position.z);
-	}
+	// IEnumerator MoveTileDown()
+	// {
+	// 	for(float i = transform.position.y; i >= (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y; i-= (tileFallSpeed/100))
+	// 	{
+	// 		transform.position = new Vector3(transform.position.x, i, transform.position.z);
+	// 		yield return new WaitForSeconds(0.01f);
+	// 	}
+	// 	transform.position = new Vector3(transform.position.x, (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y, transform.position.z);
+	// }
 
 	IEnumerator MoveTileIntoPosition()
 	{
@@ -61,14 +67,12 @@ public class TileController : MonoBehaviour {
 			yield return new WaitForSeconds(0.01f);
 		}
 		transform.position = targetLocation;
-		tempFixForBrokenMovement = true;
 	}
 
 	void OnMouseOver()
 	{
 		if(Input.GetMouseButtonDown(0) && SpawnIcons.CanPress && SpawnIcons.DoneShuffeling && SpawnIcons.DoneCheckingBoard)
 		{
-			print("My Location is: "+location.x+":"+location.y);
 			IHaveBeenSelected(gameObject);
 		}
 	}
@@ -77,7 +81,6 @@ public class TileController : MonoBehaviour {
 		scannedHorizontally = false;
 		scannedVertically = false;
 	}
-
 
 
 

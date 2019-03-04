@@ -6,8 +6,10 @@ public class SpawnIcons : MonoBehaviour {
 
 	// Public Feilds
 	public List<GameObject> TilePrefabs;
+	public GameObject HDirectionalPowerUp;
+	public GameObject VDirectionalPowerUp;
+	public GameObject BombPowerUp;
 	public static GameObject[,] board;
-	public static bool AllowForMovement;
 	public static Vector2 BorderLimit;
 	public static bool CanPress;
 	public static bool DoneCheckingBoard;
@@ -19,11 +21,12 @@ public class SpawnIcons : MonoBehaviour {
 	private Vector2 BoardSize;
 	public static float tileSize;
 	private GameObject currentlySelected;
+	// Used for decideing where to spawn pwoer up on more than 4 matches
+	private Vector2 SwappedPosition1;
+	private Vector2 SwappedPosition2;
 	private int[] locationAndAmmountOfTilesToReplanish;
 	private delegate int CoordRef(int x, int y);
-	private List<Vector2> deleteLocations;
-	// To check how long the possible moves search took
-	private	float timePassed;
+	private List<Match> deleteLocations;
 	private bool foundMoves;
 	private float imageSize;
 	
@@ -36,7 +39,7 @@ public class SpawnIcons : MonoBehaviour {
 		DoneShuffeling = true;
 		CanPress = true;
 		// Constant Size designed per level (From scriptable object later)
-		BoardSize = new Vector2(8,10);
+		BoardSize = new Vector2(10,10);
 		// Dynamic size based on screen size
 		Vector2 screenSize = new Vector2(Camera.main.orthographicSize * 2 * Camera.main.aspect, Camera.main.orthographicSize * 2); 
 		
@@ -45,37 +48,26 @@ public class SpawnIcons : MonoBehaviour {
 		{
 			tileSize = (screenSize.y/BoardSize.y)*0.8f;
 		}
-		print(tileSize);
 		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2)+(screenSize.y*0.01f));
 		locationAndAmmountOfTilesToReplanish = new int[(int)BoardSize.x];
 
 		board = new GameObject[(int)BoardSize.x, (int)BoardSize.y*2];
 
-		// Spawns the tiles
 		for(int i = 0; i < BoardSize.x; i++)
 		{
-			for(int j = 0; j < BoardSize.y; j++)
-			{
-				GameObject temp = Instantiate(TilePrefabs[Random.Range(0,TilePrefabs.Count)], new Vector3((i*tileSize) - BorderLimit.x, (j*tileSize)- BorderLimit.y, 0), Quaternion.identity);
-				// This gives the tile the reference method as to who it should call whe it has been pressed
-				temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
-				temp.AddComponent<TileController>();
-				temp.GetComponent<TileController>().IHaveBeenSelected = TileWsaPressed;
-				temp.GetComponent<TileController>().location = new Vector2(i,j);
-				board[i,j] = temp;
-
-			}
+			spawnTiles(i,(int)BoardSize.y);
 		}
-
-		print(board.GetLength(0)+" "+board.GetLength(1));
+		updateTileArrayPositions();
 		DoneCheckingBoard = false;
-		StartCoroutine(delayStartScanBoard());
-		StartCoroutine(callCheckAfterDelay());
-		CanPress = true;
+		ScanBoard();
+		StartCoroutine(HandelCheckForPossibleMoves());
+		
 	}
 
 	void TileWsaPressed(GameObject g)
 	{
+		SwappedPosition1 = new Vector2 (-1,-1);
+		SwappedPosition2 = new Vector2 (-1,-1);
 		if(currentlySelected != null)
 		{
 			if(currentlySelected == g)
@@ -86,6 +78,8 @@ public class SpawnIcons : MonoBehaviour {
 			else
 			{
 				toggleSelectedGlowEffect(true);
+				SwappedPosition1 = currentlySelected.GetComponent<TileController>().location;
+				SwappedPosition2 = g.GetComponent<TileController>().location;
 				SwapTiles(currentlySelected, g);
 				currentlySelected = null;
 			}
@@ -100,6 +94,7 @@ public class SpawnIcons : MonoBehaviour {
 
 	void SwapTiles(GameObject a, GameObject b)
 	{
+		List<Match> m = null;
 		if(TilesAdjacent(a,b)){
 			CanPress = false;
 			Vector3 temp = a.transform.position;
@@ -114,8 +109,6 @@ public class SpawnIcons : MonoBehaviour {
 			int x1 = (int)b.GetComponent<TileController>().location.x;
 			int y1 = (int)b.GetComponent<TileController>().location.y;
 
-			print("Tile 1: "+x+":"+y+"\nTile 2: "+x1+":"+y1);
-
 			GameObject temporary = board[x,y];
 			board[x,y] = board[x1,y1];
 			board[x1,y1] = temporary;
@@ -123,12 +116,44 @@ public class SpawnIcons : MonoBehaviour {
 			board[x,y].GetComponent<TileController>().location = new Vector2(x,y);
 
 			board[x1,y1].GetComponent<TileController>().location = new Vector2(x1,y1);
+
+			
+			if(a.GetComponent<EmojiType>().TT == TileType.Bomb)
+			{
+				m = ExplodeBomb(a,b);
+			}
+			else if(b.GetComponent<EmojiType>().TT == TileType.Bomb)
+			{
+				m = ExplodeBomb(b,a);
+			}
 		}
-		DoneCheckingBoard = false;
-		StartCoroutine(delayStartScanBoard());
-		StartCoroutine(callCheckAfterDelay());
 		
-		CanPress = true;
+		DoneCheckingBoard = false;
+		ScanBoard(m);
+		StartCoroutine(HandelCheckForPossibleMoves());
+	}
+
+	List<Match> ExplodeBomb(GameObject bomb, GameObject colorIdentifier)
+	{
+		TileColor c = colorIdentifier.GetComponent<EmojiType>().TC;
+		List<Match> m = new List<Match>();
+		Match bombtemp = new Match();
+		bombtemp.objectJoinedTogether.Add(bomb.GetComponent<TileController>().location);
+		m.Add(bombtemp);
+		foreach(GameObject t in board)
+		{
+			if(t != null)
+			{
+				if(t.GetComponent<EmojiType>().TC == c)
+				{
+					Match temp = new Match();
+					temp.objectJoinedTogether.Add(t.GetComponent<TileController>().location);
+					m.Add(temp);
+				}
+			}
+		}
+		return m;
+
 	}
 
 	bool TilesAdjacent(GameObject a, GameObject b)
@@ -162,25 +187,18 @@ public class SpawnIcons : MonoBehaviour {
 		}
 	}
 
-	IEnumerator callCheckAfterDelay(){
-		yield return new WaitUntil(isBoardCheckingDone);
-		foundMoves = CheckForPossibleMoves();
-		timePassed = Time.timeSinceLevelLoad - timePassed;
-		print("It took a whole {"+timePassed+"} seconds and returned {"+foundMoves+"}");
-		if(!foundMoves)
-		{
-			DoneShuffeling = false;
-			StartCoroutine(shuffle());
-			yield return new WaitUntil(isShuffleDone);
-			yield return new WaitForSeconds(0.5f);
-			DoneCheckingBoard = false;
-			StartCoroutine(delayStartScanBoard());
-			StartCoroutine(callCheckAfterDelay());
-		}
-	}
-
-	public void TestShuffle(){
-		StartCoroutine(shuffle());
+	IEnumerator HandelCheckForPossibleMoves(){
+		do{
+			foundMoves = CheckForPossibleMoves();
+			
+			if(!foundMoves)
+			{
+				DoneShuffeling = false;
+				StartCoroutine(shuffle());
+				yield return new WaitUntil(isShuffleDone);
+			}
+		}while(!foundMoves);
+		CanPress = true;
 	}
 
 	IEnumerator shuffle(){
@@ -222,6 +240,7 @@ public class SpawnIcons : MonoBehaviour {
 			board = board2;
 			
 			DoneShuffeling = true;
+			moveTilesIntoPos();
 			
 	}
 
@@ -231,12 +250,10 @@ public class SpawnIcons : MonoBehaviour {
 
 	bool CheckForPossibleMoves()
 	{
-		timePassed = Time.timeSinceLevelLoad;
 		for(int x = 0; x < board.GetLength(0); x++)
 		{
 			for(int y = 0; y < (board.GetLength(1)/2); y++)
 			{
-				print("Checking "+x+" and "+y);
 				// calculate distance to walls
 				// based on the position
 				int distToLeft = x;
@@ -249,8 +266,6 @@ public class SpawnIcons : MonoBehaviour {
 				bool TopLeft = false;
 				bool TopRight = false;
 
-				print(distToTop);
-
 				
 				// if corners are within distance both x and y for a potential match check their colours
 
@@ -259,14 +274,14 @@ public class SpawnIcons : MonoBehaviour {
 				{
 					if(distToLeft > 0)
 					{
-						if(board[x,y].GetComponent<SpriteRenderer>().color == board[x-1,y-1].GetComponent<SpriteRenderer>().color)
+						if(board[x,y].GetComponent<TileController>().color == board[x-1,y-1].GetComponent<TileController>().color)
 						{
 							BottomLeft = true;
 						}
 					}
 					if(distToRight > 0)
 					{
-						if(board[x,y].GetComponent<SpriteRenderer>().color == board[x+1,y-1].GetComponent<SpriteRenderer>().color)
+						if(board[x,y].GetComponent<TileController>().color == board[x+1,y-1].GetComponent<TileController>().color)
 						{
 							BottomRight = true;
 						}
@@ -276,22 +291,21 @@ public class SpawnIcons : MonoBehaviour {
 				{
 					if(distToLeft > 0)
 					{
-						if(board[x,y].GetComponent<SpriteRenderer>().color == board[x-1,y+1].GetComponent<SpriteRenderer>().color)
+						if(board[x,y].GetComponent<TileController>().color == board[x-1,y+1].GetComponent<TileController>().color)
 						{
 							TopLeft = true;
 						}
 					}
 					if(distToRight > 0)
 					{
-						print(x+"< These are causing problems >"+y);
-						if(board[x,y].GetComponent<SpriteRenderer>().color == board[x+1,y+1].GetComponent<SpriteRenderer>().color)
+						if(board[x,y].GetComponent<TileController>().color == board[x+1,y+1].GetComponent<TileController>().color)
 						{
 							TopRight = true;
 						}
 					}
 				}
 				
-				if((TopLeft&&TopRight) || (TopLeft&&BottomLeft) || (TopRight&&BottomRight) || (BottomLeft&&BottomRight))
+				if((TopLeft&&TopRight) || (TopLeft&&BottomLeft) ||  (TopRight&&BottomRight) || (BottomLeft&&BottomRight))
 				{
 					return true;
 				}
@@ -345,28 +359,28 @@ public class SpawnIcons : MonoBehaviour {
 					    v
 				
 				 */
-				if(distToBottom > 2 && board[x,y].GetComponent<SpriteRenderer>().color == board[x,y-2].GetComponent<SpriteRenderer>().color)
+				if(distToBottom > 2 && board[x,y].GetComponent<TileController>().color == board[x,y-2].GetComponent<TileController>().color)
 				{
 					if(checkDown(x,y-2) > 0)
 					{
 						return true;
 					}
 				}
-				if(distToLeft > 2 && board[x,y].GetComponent<SpriteRenderer>().color == board[x-2,y].GetComponent<SpriteRenderer>().color)
+				if(distToLeft > 2 && board[x,y].GetComponent<TileController>().color == board[x-2,y].GetComponent<TileController>().color)
 				{
 					if(checkLeft(x-2,y) > 0)
 					{
 						return true;
 					}
 				}
-				if(distToRight > 2 && board[x,y].GetComponent<SpriteRenderer>().color == board[x+2,y].GetComponent<SpriteRenderer>().color)
+				if(distToRight > 2 && board[x,y].GetComponent<TileController>().color == board[x+2,y].GetComponent<TileController>().color)
 				{
 					if(checkRight(x+2,y) > 0)
 					{
 						return true;
 					}
 				}
-				if(distToTop > 2 && board[x,y].GetComponent<SpriteRenderer>().color == board[x,y+2].GetComponent<SpriteRenderer>().color)
+				if(distToTop > 2 && board[x,y].GetComponent<TileController>().color == board[x,y+2].GetComponent<TileController>().color)
 				{
 					if(checkUp(x,y+2) > 0)
 					{
@@ -383,55 +397,48 @@ public class SpawnIcons : MonoBehaviour {
 		
 	}
 
-	
-
-	IEnumerator delayStartScanBoard()
+	void ScanBoard(List<Match> predefineddestroylocations = null)
 	{
 		do{
-		AllowForMovement = false;
-		deleteLocations = new List<Vector2>();
-		for(int i = 0; i < board.GetLength(0); i++)
-		{
-			for(int j = 0; j < board.GetLength(1); j++)
-			{
-				if(board[i,j] != null){
-
-					// vertical check
-					docheck(checkRight, i,j,true, !board[i,j].GetComponent<TileController>().scannedHorizontally);
-				}
-				if(board[i,j] != null){
-					// horizontal check
-					docheck(checkDown, i,j, false, !board[i,j].GetComponent<TileController>().scannedVertically);
-				}
-			}	
-		}
-
-		foreach(GameObject g in board){
-			if(g != null)
-			{
-				g.GetComponent<TileController>().resetSearch();
+			if(predefineddestroylocations == null){
+				deleteLocations = new List<Match>();
 			}
-		}
+			else{
+				deleteLocations = predefineddestroylocations;
+			}
+			for(int i = 0; i < board.GetLength(0); i++)
+			{
+				for(int j = 0; j < board.GetLength(1); j++)
+				{
+					if(board[i,j] != null){
+
+						// vertical check
+						docheck(checkRight, i,j,true, !board[i,j].GetComponent<TileController>().scannedHorizontally);
+					}
+					if(board[i,j] != null){
+						// horizontal check
+						docheck(checkUp, i,j, false, !board[i,j].GetComponent<TileController>().scannedVertically);
+					}
+				}	
+			}
+
+			foreach(GameObject g in board){
+				if(g != null)
+				{
+					g.GetComponent<TileController>().resetSearch();
+				}
+			}
 
 
-		if(deleteLocations.Count > 0){
-			DeleteTiles(deleteLocations);
-			AllowForMovement = true;
-			yield return new WaitForSeconds(0.5f);
-			DoneCheckingBoard = false;
-		}
-		else{
-			break;
-		}
-		
+			if(deleteLocations.Count > 0){
+				DeleteTiles(deleteLocations);
+				DoneCheckingBoard = false;
+			}
+			else{
+				break;
+			}
 		}while(true);
-		AllowForMovement = true;
 		DoneCheckingBoard = true;
-	}
-
-	bool isBoardCheckingDone()
-	{
-		return DoneCheckingBoard && DoneShuffeling;
 	}
 
 	// xloop determines which coord is dynamic
@@ -450,25 +457,29 @@ public class SpawnIcons : MonoBehaviour {
 			{
 				if(xLoop)
 				{
+					Match m = new Match();
 					for(int k = x; k <= x+squaretodelete; k++)
 					{
 						if(board[k,y] != null)
 						{
-							deleteLocations.Add(new Vector2(k,y));
+							m.objectJoinedTogether.Add(new Vector2(k,y));
 							board[k,y].GetComponent<TileController>().scannedHorizontally = true;
 						}
 					}
+					deleteLocations.Add(m);
 				}
 				else
 				{
-					for(int k = y; k >= y-squaretodelete; k--)
+					Match m = new Match();
+					for(int k = y; k <= y+squaretodelete; k++)
 					{
 						if(board[x,k] != null)
 						{
-							deleteLocations.Add(new Vector2(x,k));
+							m.objectJoinedTogether.Add(new Vector2(x,k));
 							board[x,k].GetComponent<TileController>().scannedVertically = true;
 						}
 					}
+					deleteLocations.Add(m);
 				}
 			}
 		
@@ -480,7 +491,7 @@ public class SpawnIcons : MonoBehaviour {
 	{
 		if(board.GetLength(0) > x+1 && board[x+1,y] != null && board[x,y] != null)
 		{
-			if(board[x,y].GetComponent<SpriteRenderer>().color == board[x+1,y].GetComponent<SpriteRenderer>().color)
+			if(board[x,y].GetComponent<TileController>().color == board[x+1,y].GetComponent<TileController>().color)
 			{
 				return 1 + checkRight(x+1,y);
 			}
@@ -492,7 +503,7 @@ public class SpawnIcons : MonoBehaviour {
 	{
 		if(0 <= x-1 && board[x-1,y] != null && board[x,y] != null)
 		{
-			if(board[x,y].GetComponent<SpriteRenderer>().color == board[x-1,y].GetComponent<SpriteRenderer>().color)
+			if(board[x,y].GetComponent<TileController>().color == board[x-1,y].GetComponent<TileController>().color)
 			{
 				return 1 + checkLeft(x-1,y);
 			}
@@ -504,7 +515,7 @@ public class SpawnIcons : MonoBehaviour {
 	{
 		if(0 <= y-1 && board[x,y-1] != null && board[x,y] != null)
 		{
-			if(board[x,y].GetComponent<SpriteRenderer>().color == board[x,y-1].GetComponent<SpriteRenderer>().color)
+			if(board[x,y].GetComponent<TileController>().color == board[x,y-1].GetComponent<TileController>().color)
 			{
 				return 1 + checkDown(x,y-1);
 			}
@@ -516,7 +527,7 @@ public class SpawnIcons : MonoBehaviour {
 	{
 		if(board.GetLength(1) > y+1 && board[x,y+1] != null && board[x,y] != null)
 		{
-			if(board[x,y].GetComponent<SpriteRenderer>().color == board[x,y+1].GetComponent<SpriteRenderer>().color)
+			if(board[x,y].GetComponent<TileController>().color == board[x,y+1].GetComponent<TileController>().color)
 			{
 				return 1 + checkUp(x,y+1);
 			}
@@ -524,25 +535,82 @@ public class SpawnIcons : MonoBehaviour {
 		return 0;
 	}
 
-	void DeleteTiles(List<Vector2> loc)
+	void DeleteTiles(List<Match> loc)
 	{
-		foreach(Vector2 l in loc)
+		print("Matches found :"+loc.Count);
+		foreach(Match m in loc)
 		{
-			if(board[(int)l.x,(int)l.y] != null)
+			// required to ensure no double powerup spawns
+			int destroyCount = 0;
+			if(m.objectJoinedTogether.Count >= 4)
 			{
-				// delete all locations 
-				Destroy(board[(int)l.x,(int)l.y].gameObject);
-				board[(int)l.x,(int)l.y] = null;
-				locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
+				Vector2 spwanPowerPosition = new Vector2(m.objectJoinedTogether[0].x, m.objectJoinedTogether[0].y);
+				foreach(Vector2 v in m.objectJoinedTogether)
+				{
+					if(v == SwappedPosition1)
+					{
+						spwanPowerPosition = SwappedPosition1;
+					}
+					else if(v == SwappedPosition2)
+					{
+						spwanPowerPosition = SwappedPosition2;
+					}
+				}
+
+				foreach(Vector2 l in m.objectJoinedTogether)
+				{
+					if(board[(int)l.x,(int)l.y] != null)
+					{
+						destroyCount ++;
+						// delete all locations 
+						Destroy(board[(int)l.x,(int)l.y].gameObject);
+						board[(int)l.x,(int)l.y] = null;
+						if(l != spwanPowerPosition){
+							locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
+						}
+					}
+				}
+
+				if(destroyCount > 4)
+				{
+					spawnSpecialTile(BombPowerUp,spwanPowerPosition);
+				}
+				else if(destroyCount == 4)
+				{
+					if(m.objectJoinedTogether[0].x == m.objectJoinedTogether[1].x)
+					{
+						spawnSpecialTile(HDirectionalPowerUp,spwanPowerPosition);
+					}
+					else
+					{
+						spawnSpecialTile(VDirectionalPowerUp,spwanPowerPosition);
+					}
+				}
+
+			}
+
+			else
+			{
+				foreach(Vector2 l in m.objectJoinedTogether)
+				{
+					if(board[(int)l.x,(int)l.y] != null)
+					{
+						// delete all locations 
+						Destroy(board[(int)l.x,(int)l.y].gameObject);
+						board[(int)l.x,(int)l.y] = null;
+						locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
+					}
+				}
 			}
 		}
 
 		for(int i = 0; i < locationAndAmmountOfTilesToReplanish.Length; i++){
 			spawnTiles(i, locationAndAmmountOfTilesToReplanish[i]);
 		}
+		updateTileArrayPositions();
 		locationAndAmmountOfTilesToReplanish = new int[(int)BoardSize.x];
 		loc.Clear();
-
+		
 		
 	}
 
@@ -556,5 +624,75 @@ public class SpawnIcons : MonoBehaviour {
 			temp.GetComponent<TileController>().location = new Vector2(loc,BoardSize.y+i);
 			board[loc,(int)BoardSize.y+i] = temp;
 		}
+		
 	}
+
+	void spawnSpecialTile(GameObject specialTile, Vector2 loc)
+	{
+		GameObject temp = Instantiate(specialTile, new Vector3((loc.x*tileSize) - BorderLimit.x, ((loc.y)*tileSize)- BorderLimit.y, 0), Quaternion.identity);
+		// This gives the tile the reference method as to who it should call whe it has been pressed
+		temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
+		temp.AddComponent<TileController>();
+		temp.GetComponent<TileController>().IHaveBeenSelected = TileWsaPressed;
+		temp.GetComponent<TileController>().location = new Vector2(loc.x,loc.y);
+		board[(int)loc.x,(int)loc.y] = temp;
+	}
+
+	void updateTileArrayPositions()
+	{
+		bool movementHasBeenMade = false;
+		do
+		{
+			movementHasBeenMade = false;
+
+			foreach(GameObject t in board)
+			{
+				if(t != null ){
+					
+					if(!movementHasBeenMade)
+					{
+						movementHasBeenMade = t.GetComponent<TileController>().updateArrayPosition();
+					}
+					else
+					{
+						t.GetComponent<TileController>().updateArrayPosition();
+					}
+				}
+			}			
+		}while(movementHasBeenMade);
+		moveTilesIntoPos();
+	}
+
+	// Tell the tile to visually move into position
+	void moveTilesIntoPos()
+	{
+		
+		foreach(GameObject t in board)
+		{
+			if(t != null ){
+			t.GetComponent<TileController>().updateTilePosition();
+			}
+		}
+	}
+
+	public void printTheBoard()
+	{
+		string printme = "";
+		for(int x = 0; x < board.GetLength(0); x++)
+		{
+			for(int y = 0; y < board.GetLength(1); y++)
+			{
+				if(board[x,y]!= null)
+				{
+					printme += board[x,y].GetComponent<TileController>().location+"\t|| ";
+				}
+				else{
+					printme += "null\t\t|| ";
+				}
+			}
+			printme += "\n";
+		}
+		print(printme);
+	}
+
 }
