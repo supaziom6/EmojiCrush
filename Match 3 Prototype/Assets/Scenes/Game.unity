@@ -799,12 +799,6 @@ MonoBehaviour:
   - {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33, type: 2}
   - {fileID: 1495391523279642, guid: 3c621ad9188c4d543be390b199b39845, type: 2}
   - {fileID: 1893422028997860, guid: ea4bbd2d2b64da74d890f75d5983b0ba, type: 2}
-  HDirectionalPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
-    type: 2}
-  VDirectionalPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
-    type: 2}
-  BombPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
-    type: 2}
   warning: {fileID: 967263286}
 --- !u!1 &1499756780
 GameObject:
@@ -838,8 +832,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.12}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 267.5}
+  m_SizeDelta: {x: 0, y: 535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1499756782
 MonoBehaviour:
@@ -956,7 +950,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 58.45
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
