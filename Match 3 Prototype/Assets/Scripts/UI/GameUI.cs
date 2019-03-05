@@ -7,6 +7,8 @@ public class GameUI : MonoBehaviour
 {
     public GameObject BackButton;
     public GameObject PauseButton;
+    public GameObject MainMenuButton;
+    public GameObject PauseMenu;
     public GameObject Score_Text;
     public GameObject Cash_Text;
     public GameObject Shop;
@@ -16,14 +18,18 @@ public class GameUI : MonoBehaviour
     public void Pause()
     {
         BackButton.SetActive(true);
+        MainMenuButton.SetActive(true);
+        PauseMenu.SetActive(true);
         PauseButton.SetActive(false);
     }
     public void Back()
     {
         BackButton.SetActive(false);
+        MainMenuButton.SetActive(false);
         Shop.SetActive(false);
         Shop_Button.SetActive(true);
         Power_Up1.SetActive(false);
+        PauseMenu.SetActive(false);
         Power_Up2.SetActive(false);
         PauseButton.SetActive(true);
     }
@@ -35,6 +41,10 @@ public class GameUI : MonoBehaviour
         Power_Up1.SetActive(true);
         Power_Up2.SetActive(true);
         PauseButton.SetActive(false);
+    }
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     public void PowerUp1()
     {
