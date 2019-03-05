@@ -48,16 +48,6 @@ public class TileController : MonoBehaviour {
 		StartCoroutine(MoveTileIntoPosition());
 	}
 
-	// IEnumerator MoveTileDown()
-	// {
-	// 	for(float i = transform.position.y; i >= (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y; i-= (tileFallSpeed/100))
-	// 	{
-	// 		transform.position = new Vector3(transform.position.x, i, transform.position.z);
-	// 		yield return new WaitForSeconds(0.01f);
-	// 	}
-	// 	transform.position = new Vector3(transform.position.x, (location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y, transform.position.z);
-	// }
-
 	IEnumerator MoveTileIntoPosition()
 	{
 		Vector3 targetLocation = new Vector3 ((location.x*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.x,(location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y,transform.position.z);
