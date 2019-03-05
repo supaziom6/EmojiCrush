@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
 {
+    public static bool Paused = false;
     public GameObject BackButton;
     public GameObject PauseButton;
     public GameObject MainMenuButton;
@@ -15,8 +16,10 @@ public class GameUI : MonoBehaviour
     public GameObject Shop_Button;
     public GameObject Power_Up1;
     public GameObject Power_Up2;
+
     public void Pause()
     {
+        Paused = true;
         BackButton.SetActive(true);
         MainMenuButton.SetActive(true);
         PauseMenu.SetActive(true);
@@ -24,6 +27,7 @@ public class GameUI : MonoBehaviour
     }
     public void Back()
     {
+        Paused = false;
         BackButton.SetActive(false);
         MainMenuButton.SetActive(false);
         Shop.SetActive(false);
@@ -35,6 +39,7 @@ public class GameUI : MonoBehaviour
     }
     public void ShowShop()
     {
+        Paused = true;
         BackButton.SetActive(true);
         Shop_Button.SetActive(false);
         Shop.SetActive(true);
