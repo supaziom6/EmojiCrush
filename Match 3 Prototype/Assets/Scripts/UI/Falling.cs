@@ -60,11 +60,11 @@ public class Falling : MonoBehaviour
             Sprite.transform.Translate(Vector2.right * ((Speed * Random.Range(1f, 2f)) * Time.deltaTime), Space.World);
         }
         print("Half the bounds"+ -bounds[1] / 2 + "Half the scaled Image size"+(currentSprite.bounds.size.x * transform.localScale.x));
-        if (Sprite.transform.position.x < -bounds[1]/2 + (currentSprite.bounds.size.x*transform.localScale.x))
+        if (Sprite.transform.position.x < -bounds[1]/2 + (currentSprite.bounds.size.x*transform.localScale.x/2))
         {
             GoLeft = false;
         }
-        if (Sprite.transform.position.x > bounds[1]/2 - (currentSprite.bounds.size.x*transform.localScale.x))
+        if (Sprite.transform.position.x > bounds[1]/2 - (currentSprite.bounds.size.x*transform.localScale.x/2))
         {
             GoLeft = true;
         }
