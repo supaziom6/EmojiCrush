@@ -770,7 +770,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32.45
+  m_fontSize: 31.3
   m_fontSizeBase: 49.73
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -977,7 +977,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
@@ -1670,7 +1670,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24.65
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1862,9 +1862,9 @@ MonoBehaviour:
   - {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33, type: 2}
   - {fileID: 1495391523279642, guid: 3c621ad9188c4d543be390b199b39845, type: 2}
   - {fileID: 1893422028997860, guid: ea4bbd2d2b64da74d890f75d5983b0ba, type: 2}
-  HDirectionalPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
+  HDirectionalPowerUp: {fileID: 1372339282642038, guid: e584e4b76c41eeb4eb930a0a009b0833,
     type: 2}
-  VDirectionalPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
+  VDirectionalPowerUp: {fileID: 1372339282642038, guid: 1c49c6f9eea810849ba566fc6feed7b3,
     type: 2}
   BombPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
     type: 2}
@@ -2415,7 +2415,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24.65
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2639,7 +2639,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24.65
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
