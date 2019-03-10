@@ -6,31 +6,41 @@ using UnityEngine.UI;
 public class MusicHandler: MonoBehaviour {
 
     public static float Volume = 1;
-    private bool MusicToggle;
     public Slider slider;
     public Toggle Music;
     public AudioSource Audio;
+    public AudioSource Sound;
     // Use this for initialization
     void Awake()
     {
-        MusicToggle = true;
         slider.value = Volume;
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("Music"));
     }
     public void OnValueChanged()
     {
-        Audio.GetComponent<AudioSource>().volume = slider.value;
+        Audio.volume = slider.value;
         Volume = slider.value;
     }
-    public void ToggleMusic()
+    public void ToggleMusic(bool MusicToggled)
     {
-        if(MusicToggle)
+        if (MusicToggled == false)
         {
-            Audio.mute = true;
+            Audio.volume = 0;
         }
-        if(!MusicToggle)
+        if(MusicToggled == true)
         {
-            Audio.mute = false;
+            Audio.volume = slider.value;
+        }
+    }
+    public void ToggleSoundEffects(bool SoundToggled)
+    {
+        if(SoundToggled == false)
+        {
+            Sound.volume = 0;
+        }
+        if (SoundToggled == true)
+        {
+            Sound.volume = slider.value;
         }
     }
 }

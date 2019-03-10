@@ -373,6 +373,7 @@ MonoBehaviour:
   slider: {fileID: 1176751780}
   Music: {fileID: 2091787623}
   Audio: {fileID: 67543602}
+  Sound: {fileID: 0}
 --- !u!1001 &96432070
 Prefab:
   m_ObjectHideFlags: 0
@@ -821,8 +822,9 @@ MonoBehaviour:
   ReturnButton: {fileID: 2039192767}
   OptionsButton: {fileID: 872237070}
   ExitButton: {fileID: 1574709380}
+  ShopButton: {fileID: 897337589}
   OptionsMenu: {fileID: 694412583}
-  BackgroundImage: {fileID: 0}
+  BackgroundImage: {fileID: 1310413994}
   OptionsBackground: {fileID: 2107226161}
 --- !u!20 &519420031
 Camera:
@@ -1027,9 +1029,9 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1628055969}
   toggleTransition: 1
-  graphic: {fileID: 0}
+  graphic: {fileID: 906301161}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
@@ -3228,8 +3230,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 67543604}
-        m_MethodName: Mute
-        m_Mode: 1
+        m_MethodName: ToggleMusic
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

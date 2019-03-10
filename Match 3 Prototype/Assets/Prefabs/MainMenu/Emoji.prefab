@@ -57,6 +57,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5ebbc460763c34f48990677a24f66ff2, type: 3}
   - {fileID: 21300000, guid: 0b969e8656dcbd74ead2c058b983573e, type: 3}
   - {fileID: 21300000, guid: 265410336c0e3ea47ba9c46c60dc887f, type: 3}
+  - {fileID: 21300000, guid: b97da5da54c68b640bdf8237cf14f3fd, type: 3}
+  - {fileID: 21300000, guid: 30ba538dceade8e4c80022958d7b521a, type: 3}
   GoLeft: 0
   Sprite: {fileID: 1856633175069828}
   startPos: {x: 0, y: 0}
