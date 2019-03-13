@@ -1670,7 +1670,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1851,8 +1851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f42388d2d67f814ea136d1d95dee3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardWidth: 8
-  BoardHeight: 8
   TilePrefabs:
   - {fileID: 1856470453335922, guid: c9ecb842f11a5c944a6412865bbb44cc, type: 2}
   - {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7, type: 2}
@@ -1871,8 +1869,6 @@ MonoBehaviour:
   BombPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
     type: 2}
   warning: {fileID: 967263286}
-  Background: {fileID: 0}
-  BackgroundParrent: {fileID: 0}
 --- !u!1 &1191793146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,7 +2415,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2643,7 +2639,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 27.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
