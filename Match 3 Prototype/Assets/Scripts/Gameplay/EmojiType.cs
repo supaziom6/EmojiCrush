@@ -8,7 +8,7 @@ public enum TileType
 }
 public enum TileColor
 {
-	Black,Blue,Green,Orange,Pink,Purple,Red,Turqoise,White,Yellow,NA
+	Angry,Cat,Cold,Evil,Football,Heart,Sick,Sunglasses,White,Yellow,NA
 }
 public class EmojiType : MonoBehaviour
 {

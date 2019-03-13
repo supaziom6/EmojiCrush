@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class SpawnIcons : MonoBehaviour {
 
+	[Header("Board Size")]
+	public int BoardWidth;
+	public int BoardHeight;
+
 	// Public Feilds
+	[Header("Tiles")]
 	public List<GameObject> TilePrefabs;
 	public GameObject HDirectionalPowerUp;
 	public GameObject VDirectionalPowerUp;
@@ -14,7 +19,10 @@ public class SpawnIcons : MonoBehaviour {
 	public static bool CanPress;
 	public static bool DoneCheckingBoard;
 	public static bool DoneShuffeling;
+	[Header("Miscaleneous")]
 	public Animator warning;
+	public GameObject Background;
+	public GameObject BackgroundParrent;
 
 
 	// Private Feilds
@@ -39,7 +47,7 @@ public class SpawnIcons : MonoBehaviour {
 		DoneShuffeling = true;
 		CanPress = true;
 		// Constant Size designed per level (From scriptable object later)
-		BoardSize = new Vector2(10,10);
+		BoardSize = new Vector2(BoardWidth,BoardHeight);
 		// Dynamic size based on screen size
 		Vector2 screenSize = new Vector2(Camera.main.orthographicSize * 2 * Camera.main.aspect, Camera.main.orthographicSize * 2); 
 		
@@ -50,6 +58,18 @@ public class SpawnIcons : MonoBehaviour {
 		}
 		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2)+(screenSize.y*0.01f));
 		locationAndAmmountOfTilesToReplanish = new int[(int)BoardSize.x];
+
+		// Spawn background tiles (Dynamic board background)
+		for(int x = 0; x < BoardSize.x; x++)
+		{
+			for(int y = 0; y < BoardSize.y; y++)
+			{
+				GameObject temp = Instantiate(Background, new Vector3((x*tileSize) - BorderLimit.x, (y*tileSize)- BorderLimit.y, 1), Quaternion.identity);
+				temp.transform.localScale = new Vector3(tileSize*1.25f,tileSize*1.25f,1);
+				temp.transform.parent = BackgroundParrent.transform;
+			}
+		}
+
 
 		board = new GameObject[(int)BoardSize.x, (int)BoardSize.y*2];
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ContactManager : MonoBehaviour {
 
@@ -10,16 +12,31 @@ public class ContactManager : MonoBehaviour {
     public string[] correctResponses = new string[20];
     public string[] incorrectResponses = new string[20];
 
+    //Text
+    public Text conName;
+    public Text conMessage;
+    public Text playerCorrectResponse;
+    public Text playerIncorrectResponse;
+
     //Game state flag - THIS IS ONLY TEMPORARY FLAG
     bool hasWon = false;
+
+    //Buttons
+    public GameObject continueButton;
+    //TEST
+    int testScene;
     // Use this for initialization
     void Start () {
-		
-	}
+        //TEST
+        testScene = SceneManager.GetActiveScene().buildIndex;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        ContactNames();
+        ContactMessage();
+        UpdateText();
+        print(testScene);
 	}
     public void ContactNames()
     {
@@ -140,7 +157,7 @@ public class ContactManager : MonoBehaviour {
             //Uber
             else if (contactName[i].Equals("Uber") && hasWon)
             {
-                correctResponses[8] = "I'll wait outside";
+                correctResponses[8] = "I'll be right outside";
             }
             //Dominos
             else if (contactName[i].Equals("Dominos") && hasWon)
@@ -151,10 +168,121 @@ public class ContactManager : MonoBehaviour {
     }
     public void IncorrectResponses()
     {
-
+        for(int i = 0; i < incorrectResponses.Length; i++)
+        {
+            //Mom
+            if (contactName[i].Equals("Mom") && hasWon == false)
+            {
+                incorrectResponses[0] = "I'm busy mom";
+            }
+            //Brother
+            else if (contactName[i].Equals("Brother") && hasWon == false)
+            {
+                incorrectResponses[1] = "I can't, also Mr Whiskers died, sorry to tell you this now";
+            }
+            //Doctor
+            else if (contactName[i].Equals("Doctor") && hasWon == false)
+            {
+                incorrectResponses[2] = "I don't recognise this number";
+            }
+            //Boss
+            else if (contactName[i].Equals("Boss") && hasWon == false)
+            {
+                correctResponses[3] = "I'm not going to work anymore";
+            }
+            //Colleague
+            else if (contactName[i].Equals("Colleague") && hasWon == false)
+            {
+                incorrectResponses[4] = "No Brian, you keep on talking about Bitcoin and it honestly upsets me";
+            }
+            //Cousin
+            else if (contactName[i].Equals("Cousin") && hasWon == false)
+            {
+                incorrectResponses[5] = "I'm busy this week";
+            }
+            //Friend
+            else if (contactName[i].Equals("Friend") && hasWon == false)
+            {
+                incorrectResponses[6] = "Already made plans tonight";
+            }
+            //Grandma
+            else if (contactName[i].Equals("GrandMa") && hasWon == false)
+            {
+                incorrectResponses[7] = "I will come sometime next week to visit";
+            }
+            //Uber
+            else if (contactName[i].Equals("Uber") && hasWon == false)
+            {
+                incorrectResponses[8] = "Who is this?";
+            }
+            //Dominos
+            else if (contactName[i].Equals("Dominos") && hasWon == false)
+            {
+                incorrectResponses[9] = "Pineapples";
+            }
+        }
     }
-    public void TextManager()
+    public void UpdateText()
     {
-
+        //Mom
+        if (testScene == 1)
+        {
+            conName.text = contactName[0].ToString();
+            conMessage.text = contactMessage[0].ToString();
+        }
+        //Brother
+        if (testScene == 2)
+        {
+            conName.text = contactName[1].ToString();
+            conMessage.text = contactMessage[1].ToString();
+        }
+        //Doctor
+        if (testScene == 3)
+        {
+            conName.text = contactName[2].ToString();
+            conMessage.text = contactMessage[2].ToString();
+        }
+        //Boss
+        if (testScene == 4)
+        {
+            conName.text = contactName[3].ToString();
+            conMessage.text = contactMessage[3].ToString();
+        }
+        //Colleague
+        if (testScene == 5)
+        {
+            conName.text = contactName[4].ToString();
+            conMessage.text = contactMessage[4].ToString();
+        }
+        //Cousin
+        if (testScene == 6)
+        {
+            conName.text = contactName[5].ToString();
+            conMessage.text = contactMessage[5].ToString();
+        }
+        //Friend
+        if (testScene == 7)
+        {
+            conName.text = contactName[6].ToString();
+            conMessage.text = contactMessage[6].ToString();
+        }
+        //GrandMa
+        if (testScene == 8)
+        {
+            conName.text = contactName[7].ToString();
+            conMessage.text = contactMessage[7].ToString();
+        }
+        //Uber
+        if (testScene == 9)
+        {
+            conName.text = contactName[8].ToString();
+            conMessage.text = contactMessage[8].ToString();
+        }
+        //Dominos
+        if (testScene == 10)
+        {
+            conName.text = contactName[9].ToString();
+            conMessage.text = contactMessage[9].ToString();
+        }
     }
 }
