@@ -20,6 +20,7 @@ public class SpawnIcons : MonoBehaviour {
 	public static bool DoneCheckingBoard;
 	public static bool DoneShuffeling;
 	[Header("Miscaleneous")]
+	public TextManager UIController;
 	public Animator warning;
 	public GameObject Background;
 	public GameObject BackgroundParrent;
@@ -37,6 +38,7 @@ public class SpawnIcons : MonoBehaviour {
 	private List<Match> deleteLocations;
 	private bool foundMoves;
 	private float imageSize;
+	private bool IsPowerUpActivated;
 	
 
 	// Use this for initialization
@@ -46,6 +48,7 @@ public class SpawnIcons : MonoBehaviour {
 		DoneCheckingBoard = true;
 		DoneShuffeling = true;
 		CanPress = true;
+		IsPowerUpActivated = false;
 		// Constant Size designed per level (From scriptable object later)
 		BoardSize = new Vector2(BoardWidth,BoardHeight);
 		// Dynamic size based on screen size
@@ -86,34 +89,42 @@ public class SpawnIcons : MonoBehaviour {
 
 	void TileWsaPressed(GameObject g)
 	{
-		SwappedPosition1 = new Vector2 (-1,-1);
-		SwappedPosition2 = new Vector2 (-1,-1);
-		if(currentlySelected != null)
+		if(!IsPowerUpActivated)
 		{
-			if(currentlySelected == g)
+			SwappedPosition1 = new Vector2 (-1,-1);
+			SwappedPosition2 = new Vector2 (-1,-1);
+			if(currentlySelected != null)
 			{
-				toggleSelectedGlowEffect(true);
-				currentlySelected = null;
+				if(currentlySelected == g)
+				{
+					toggleSelectedGlowEffect(true);
+					currentlySelected = null;
+				}
+				else
+				{
+					toggleSelectedGlowEffect(true);
+					SwappedPosition1 = currentlySelected.GetComponent<TileController>().location;
+					SwappedPosition2 = g.GetComponent<TileController>().location;
+					SwapTiles(currentlySelected, g);
+					currentlySelected = null;
+				}
+
 			}
 			else
 			{
-				toggleSelectedGlowEffect(true);
-				SwappedPosition1 = currentlySelected.GetComponent<TileController>().location;
-				SwappedPosition2 = g.GetComponent<TileController>().location;
-				SwapTiles(currentlySelected, g);
-				currentlySelected = null;
+				currentlySelected = g;
+				toggleSelectedGlowEffect(false);
 			}
-
 		}
 		else
 		{
-			currentlySelected = g;
-			toggleSelectedGlowEffect(false);
+			// Do powerup calls here
 		}
 	}
 
 	void SwapTiles(GameObject a, GameObject b)
 	{
+		UIController.UseMove();
 		List<Match> m = null;
 		if(TilesAdjacent(a,b) && !(a.GetComponent<EmojiType>().TC == TileColor.NA && b.GetComponent<EmojiType>().TC == TileColor.NA)){
 			CanPress = false;
@@ -168,6 +179,15 @@ public class SpawnIcons : MonoBehaviour {
 		ScanBoard(m);
 		StartCoroutine(HandelCheckForPossibleMoves());
 	}
+
+	/// <summary>
+	///	The power up that changes random emoji to the one that's required by the goal
+	/// </summary>
+	void AutoCorrect()
+	{
+
+	}
+
 
 	List<Match> ExplodeBomb(GameObject bomb, GameObject colorIdentifier)
 	{
@@ -637,6 +657,7 @@ public class SpawnIcons : MonoBehaviour {
 					{
 						destroyCount ++;
 						// delete all locations 
+						UIController.UpdateScore(100);
 						Destroy(board[(int)l.x,(int)l.y].gameObject);
 						board[(int)l.x,(int)l.y] = null;
 						if(l != spwanPowerPosition){
@@ -670,6 +691,7 @@ public class SpawnIcons : MonoBehaviour {
 					if(board[(int)l.x,(int)l.y] != null)
 					{
 						// delete all locations 
+						UIController.UpdateScore(100);
 						Destroy(board[(int)l.x,(int)l.y].gameObject);
 						board[(int)l.x,(int)l.y] = null;
 						locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;

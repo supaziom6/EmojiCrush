@@ -7,8 +7,6 @@ public class TextManager : MonoBehaviour {
 
     public TextMeshProUGUI ScoreText;
     private int Score;
-    public TextMeshProUGUI CashText;
-    private int Cash;
     public TextMeshProUGUI MovesLeft;
     private int Moves;
     public TextMeshProUGUI EmojisText;
@@ -25,7 +23,8 @@ public class TextManager : MonoBehaviour {
          * load move limit from level file
          * 
          * */
-
+         Moves = 45;
+         Emojis = 30;
 
         RegisterUpdate();
 
@@ -35,7 +34,7 @@ public class TextManager : MonoBehaviour {
     {
         ScoreText.text = "Score: " + Score;
         EmojisText.text = "Emojis Left: " + Emojis;
-        CashText.text = "Cash: " + Cash;
+        MovesLeft.text = "Moves Left: " + Moves;
     }
     public void GoalEmojis(int emojidestroyed)
     {
@@ -44,6 +43,7 @@ public class TextManager : MonoBehaviour {
         {
             GoalReached = true;
         }
+        RegisterUpdate();
     }
     public void UseMove()
     {
