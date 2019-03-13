@@ -23,20 +23,15 @@ public class ContactManager : MonoBehaviour {
 
     //Buttons
     public GameObject continueButton;
-    //TEST
-    int testScene;
     // Use this for initialization
     void Start () {
-        //TEST
-        testScene = SceneManager.GetActiveScene().buildIndex;
     }
 	
 	// Update is called once per frame
 	void Update () {
         ContactNames();
         ContactMessage();
-        UpdateText();
-        print(testScene);
+        ContactMessage();
 	}
     public void ContactNames()
     {
@@ -220,69 +215,6 @@ public class ContactManager : MonoBehaviour {
             {
                 incorrectResponses[9] = "Pineapples";
             }
-        }
-    }
-    public void UpdateText()
-    {
-        //Mom
-        if (testScene == 1)
-        {
-            conName.text = contactName[0].ToString();
-            conMessage.text = contactMessage[0].ToString();
-        }
-        //Brother
-        if (testScene == 2)
-        {
-            conName.text = contactName[1].ToString();
-            conMessage.text = contactMessage[1].ToString();
-        }
-        //Doctor
-        if (testScene == 3)
-        {
-            conName.text = contactName[2].ToString();
-            conMessage.text = contactMessage[2].ToString();
-        }
-        //Boss
-        if (testScene == 4)
-        {
-            conName.text = contactName[3].ToString();
-            conMessage.text = contactMessage[3].ToString();
-        }
-        //Colleague
-        if (testScene == 5)
-        {
-            conName.text = contactName[4].ToString();
-            conMessage.text = contactMessage[4].ToString();
-        }
-        //Cousin
-        if (testScene == 6)
-        {
-            conName.text = contactName[5].ToString();
-            conMessage.text = contactMessage[5].ToString();
-        }
-        //Friend
-        if (testScene == 7)
-        {
-            conName.text = contactName[6].ToString();
-            conMessage.text = contactMessage[6].ToString();
-        }
-        //GrandMa
-        if (testScene == 8)
-        {
-            conName.text = contactName[7].ToString();
-            conMessage.text = contactMessage[7].ToString();
-        }
-        //Uber
-        if (testScene == 9)
-        {
-            conName.text = contactName[8].ToString();
-            conMessage.text = contactMessage[8].ToString();
-        }
-        //Dominos
-        if (testScene == 10)
-        {
-            conName.text = contactName[9].ToString();
-            conMessage.text = contactMessage[9].ToString();
         }
     }
 }

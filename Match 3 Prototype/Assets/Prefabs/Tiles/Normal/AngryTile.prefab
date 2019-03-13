@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61279873968927396}
   - component: {fileID: 114361743771386382}
   m_Layer: 0
-  m_Name: BlackTile
+  m_Name: AngryTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,6 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
