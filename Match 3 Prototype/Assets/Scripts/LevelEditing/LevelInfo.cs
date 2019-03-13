@@ -17,9 +17,9 @@ public class LevelInfo : ScriptableObject
 		public float spawnChance;
 	}
 
-	/// <Summary>
+	/// <summary>
 	///	Defines the types of emoji that can spawn
-	/// </Summary>
+	/// </summary>
 	[Tooltip("List of Emoji that can spawn in this level and their chances to spawn")]
 	public List<LevelEmojiInfo> possibleEmoji;
 	[Header("Board Size")]

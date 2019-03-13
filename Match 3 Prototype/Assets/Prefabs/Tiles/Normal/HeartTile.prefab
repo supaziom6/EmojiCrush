@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TT: 0
-  TC: 6
+  TC: 5
 --- !u!212 &212187458628639566
 SpriteRenderer:
   m_ObjectHideFlags: 1
