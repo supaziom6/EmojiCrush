@@ -19,7 +19,8 @@ public class SpawnIcons : MonoBehaviour {
 	public static bool CanPress;
 	public static bool DoneCheckingBoard;
 	public static bool DoneShuffeling;
-	[Header("Miscaleneous")]
+    [Header("Miscaleneous")]
+    public GameUI PowerUpController;
 	public GameObject goalEmoji;
 	public TextManager UIController;
 	public Animator warning;
@@ -90,7 +91,7 @@ public class SpawnIcons : MonoBehaviour {
 
 	void TileWsaPressed(GameObject g)
 	{
-		if(!IsPowerUpActivated)
+		if(!GameUI.EmojiCrushActivated)
 		{
 			SwappedPosition1 = new Vector2 (-1,-1);
 			SwappedPosition2 = new Vector2 (-1,-1);
@@ -119,7 +120,8 @@ public class SpawnIcons : MonoBehaviour {
 		}
 		else
 		{
-			// Do powerup calls here
+            EmojiCrushActivate(g);
+            PowerUpController.Back();
 		}
 	}
 
@@ -217,6 +219,12 @@ public class SpawnIcons : MonoBehaviour {
 		}
 	}
 
+    public void EmojiCrushActivate(GameObject g)
+    {
+        Match m = new Match();
+        m.objectJoinedTogether.Add(g.GetComponent<TileController>().location);
+        DeleteTiles(new List<Match>() { m });
+    }
 
 	List<Match> ExplodeBomb(GameObject bomb, GameObject colorIdentifier)
 	{

@@ -11,4 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391aabea5af5ce14ca7436e90f980999, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  possibleEmoji: []
+  possibleEmoji:
+  - emojiType: {fileID: 1856470453335922, guid: c9ecb842f11a5c944a6412865bbb44cc,
+      type: 2}
+    spawnChance: 0.2
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  - emojiType: {fileID: 0}
+    spawnChance: 0
+  xSize: 5
+  ySize: 5

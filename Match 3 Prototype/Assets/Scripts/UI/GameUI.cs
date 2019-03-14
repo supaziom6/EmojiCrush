@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameUI : MonoBehaviour
 {
     public static bool Paused = false;
+    public static bool EmojiCrushActivated = false;
     public GameObject BackButton;
     public GameObject PauseButton;
     public GameObject MainMenuButton;
@@ -16,6 +17,7 @@ public class GameUI : MonoBehaviour
     public GameObject Shop_Button;
     public GameObject Power_Up1;
     public GameObject Power_Up2;
+    public GameObject EmojiCrushExplanation;
 
     public void Pause()
     {
@@ -38,6 +40,7 @@ public class GameUI : MonoBehaviour
         PauseMenu.SetActive(false);
         Power_Up2.SetActive(false);
         PauseButton.SetActive(true);
+        EmojiCrushExplanation.SetActive(false);
     }
     public void ShowShop()
     {
@@ -60,6 +63,23 @@ public class GameUI : MonoBehaviour
     }
     public void PowerUp2()
     {
+        Shop.SetActive(false);
+        Power_Up1.SetActive(false);
+        PauseMenu.SetActive(false);
+        Power_Up2.SetActive(false);
+        EmojiCrushExplanation.SetActive(true);
+        EmojiCrushActivated = true;
         //Do Something Here
     }
+
+    public void cancelPowerUp()
+    {
+        Shop.SetActive(true);
+        Power_Up1.SetActive(true);
+        Power_Up2.SetActive(true);
+        EmojiCrushExplanation.SetActive(false);
+        EmojiCrushActivated = false;
+    }
+    
+
 }
