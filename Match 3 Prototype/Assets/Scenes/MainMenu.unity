@@ -1268,6 +1268,7 @@ MonoBehaviour:
   OptionsButton: {fileID: 872237070}
   ExitButton: {fileID: 1574709380}
   ShopButton: {fileID: 897337589}
+  TutorialButton: {fileID: 515314677}
   OptionsMenu: {fileID: 694412583}
   BackgroundImage: {fileID: 1310413994}
   OptionsBackground: {fileID: 2107226161}

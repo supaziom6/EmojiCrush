@@ -12,6 +12,7 @@ public class MainMenuHandler : MonoBehaviour
     public GameObject OptionsButton;
     public GameObject ExitButton;
     public GameObject ShopButton;
+    public GameObject TutorialButton;
     // Parent Objects
     public GameObject OptionsMenu;
     // Sprites
@@ -24,6 +25,7 @@ public class MainMenuHandler : MonoBehaviour
         Levels.SetActive(false);
         ExitButton.SetActive(false);
         ShopButton.SetActive(false);
+        TutorialButton.SetActive(false);
         LevelButtons.SetActive(true);
         OptionsBackground.SetActive(false);
         ReturnButton.SetActive(true);
@@ -35,6 +37,7 @@ public class MainMenuHandler : MonoBehaviour
         ShopButton.SetActive(false);
         ExitButton.SetActive(false);
         LevelButtons.SetActive(false);
+        TutorialButton.SetActive(false);
         OptionsMenu.SetActive(true);
         OptionsBackground.SetActive(true);
         ReturnButton.SetActive(true);
@@ -48,6 +51,7 @@ public class MainMenuHandler : MonoBehaviour
         OptionsBackground.SetActive(false);
         LevelButtons.SetActive(false);
         ShopButton.SetActive(true);
+        TutorialButton.SetActive(true);
         Levels.SetActive(true);
         OptionsButton.SetActive(true);
         OptionsMenu.SetActive(false);
