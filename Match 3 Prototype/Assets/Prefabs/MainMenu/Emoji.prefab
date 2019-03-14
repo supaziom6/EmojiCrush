@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1856633175069828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.44, y: 5.33, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,12 +53,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: cba2a81a9fae8684aadef3cbf6829e44, type: 3}
-  - {fileID: 21300000, guid: 5ebbc460763c34f48990677a24f66ff2, type: 3}
-  - {fileID: 21300000, guid: 0b969e8656dcbd74ead2c058b983573e, type: 3}
-  - {fileID: 21300000, guid: 265410336c0e3ea47ba9c46c60dc887f, type: 3}
+  - {fileID: 21300000, guid: 6cbb473e0a8370e448f3d8ad8658ed2a, type: 3}
+  - {fileID: 21300000, guid: 29f7241f84b99d245b6f9a9324617ef7, type: 3}
   - {fileID: 21300000, guid: b97da5da54c68b640bdf8237cf14f3fd, type: 3}
   - {fileID: 21300000, guid: 30ba538dceade8e4c80022958d7b521a, type: 3}
+  - {fileID: 21300000, guid: fb802131e2869d1458f8870b413aebc7, type: 3}
+  - {fileID: 21300000, guid: 6a7a484ed89867f4889a91e30672ece1, type: 3}
+  - {fileID: 21300000, guid: ea28feadd51bbd54397cedb4a1be4486, type: 3}
+  - {fileID: 21300000, guid: 5ce6808c3dc404f469879d77c632a2ca, type: 3}
+  - {fileID: 21300000, guid: cae3170fc7f6e2540925cab4cc84506c, type: 3}
   GoLeft: 0
   Sprite: {fileID: 1856633175069828}
   startPos: {x: 0, y: 0}
@@ -109,6 +112,6 @@ SpriteRenderer:
   m_Size: {x: 4.33, y: 4.08}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
