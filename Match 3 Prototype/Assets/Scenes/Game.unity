@@ -1884,6 +1884,7 @@ MonoBehaviour:
     type: 2}
   BombPowerUp: {fileID: 1339865602324424, guid: 3c9bdcfe436a04843a8061112cec9379,
     type: 2}
+  goalEmoji: {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7, type: 2}
   UIController: {fileID: 1020364088}
   warning: {fileID: 967263286}
   Background: {fileID: 1785135388884980, guid: a89ee1ea066c50343862678567ee5a53, type: 2}
@@ -1955,7 +1956,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Power Up 1
+  m_Text: AutoCorrect
 --- !u!222 &1191793149
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2218,8 +2219,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1020364087}
-        m_MethodName: PowerUp1
+      - m_Target: {fileID: 1147504217}
+        m_MethodName: AutoCorrect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

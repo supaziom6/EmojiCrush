@@ -20,6 +20,7 @@ public class SpawnIcons : MonoBehaviour {
 	public static bool DoneCheckingBoard;
 	public static bool DoneShuffeling;
 	[Header("Miscaleneous")]
+	public GameObject goalEmoji;
 	public TextManager UIController;
 	public Animator warning;
 	public GameObject Background;
@@ -183,9 +184,37 @@ public class SpawnIcons : MonoBehaviour {
 	/// <summary>
 	///	The power up that changes random emoji to the one that's required by the goal
 	/// </summary>
-	void AutoCorrect()
+	public void AutoCorrect()
 	{
+		foreach(GameObject g in board)
+		{
 
+			float chance = Random.Range(0,1f);
+
+			if(chance < 0.1f)
+			{
+				SwapToGoalEmoji(g);
+			}	
+		}
+		ScanBoard();
+
+	}
+
+	void SwapToGoalEmoji(GameObject g)
+	{
+		if(g != null)
+		{
+			Vector2 loc = g.GetComponent<TileController>().location;
+			GameObject temp = Instantiate(goalEmoji, new Vector3((loc.x*tileSize) - BorderLimit.x, (loc.y*tileSize)- BorderLimit.y, 0), Quaternion.identity);
+			// This gives the tile the reference method as to who it should call whe it has been pressed
+			temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
+			temp.AddComponent<TileController>();
+			temp.GetComponent<TileController>().IHaveBeenSelected = TileWsaPressed;
+			temp.GetComponent<TileController>().location = new Vector2(loc.x,loc.y);
+			board[(int)loc.x,(int)loc.y] = temp;
+			Destroy(g);
+
+		}
 	}
 
 
@@ -335,7 +364,7 @@ public class SpawnIcons : MonoBehaviour {
 			
 			DoneShuffeling = true;
 			moveTilesIntoPos();
-			
+			ScanBoard();
 	}
 
 	bool isShuffleDone(){
@@ -658,7 +687,11 @@ public class SpawnIcons : MonoBehaviour {
 						destroyCount ++;
 						// delete all locations 
 						UIController.UpdateScore(100);
-						Destroy(board[(int)l.x,(int)l.y].gameObject);
+						if(board[(int)l.x,(int)l.y].GetComponent<EmojiType>().TC == goalEmoji.GetComponent<EmojiType>().TC)
+						{
+							UIController.GoalEmojis(1);
+						}
+						Destroy(board[(int)l.x,(int)l.y]);
 						board[(int)l.x,(int)l.y] = null;
 						if(l != spwanPowerPosition){
 							locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
@@ -692,7 +725,11 @@ public class SpawnIcons : MonoBehaviour {
 					{
 						// delete all locations 
 						UIController.UpdateScore(100);
-						Destroy(board[(int)l.x,(int)l.y].gameObject);
+						if(board[(int)l.x,(int)l.y].GetComponent<EmojiType>().TC == goalEmoji.GetComponent<EmojiType>().TC)
+						{
+							UIController.GoalEmojis(1);
+						}
+						Destroy(board[(int)l.x,(int)l.y]);
 						board[(int)l.x,(int)l.y] = null;
 						locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
 					}
