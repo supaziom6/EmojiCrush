@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MusicHandler: MonoBehaviour {
 
+    private static MusicHandler INSTANCE;
     public static float Volume = 1;
     public Slider slider;
     public Toggle Music;
@@ -13,8 +14,18 @@ public class MusicHandler: MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        slider.value = Volume;
-        DontDestroyOnLoad(GameObject.FindGameObjectWithTag("Music"));
+        if(INSTANCE == null)
+        {
+            INSTANCE = this;
+            slider.value = Volume;
+        
+            DontDestroyOnLoad(GameObject.FindGameObjectWithTag("Music"));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
     public void OnValueChanged()
     {

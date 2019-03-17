@@ -20,7 +20,7 @@ public class TextManager : MonoBehaviour {
 
     private void Awake()
     {
-        GameObject temp = GameObject.Find("LevelEditor");
+        LevelEnded = false;
         GoalReached = false;
         currentLevel = LoadLoadingInfo.currentLevel;
         Score = 0;
