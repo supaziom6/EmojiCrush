@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour {
 
@@ -20,7 +21,6 @@ public class Shop : MonoBehaviour {
 
 	private void Awake()
 	{
-		SavingManager.PersistantData.Coins = 100;
 		checkPrices();
 	}
 
@@ -95,5 +95,10 @@ public class Shop : MonoBehaviour {
 			c.a = defaultColor;
 		}
 		return c;
+	}
+
+	public void BackToMenu()
+	{
+		SceneManager.LoadScene("MainMenu");
 	}
 }

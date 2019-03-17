@@ -64,4 +64,9 @@ public class MainMenuHandler : MonoBehaviour
         LoadLoadingInfo.currentLevel = info;
         SceneManager.LoadScene("Game");
     }
+
+    public void Shop()
+    {
+        SceneManager.LoadScene("Shop");
+    }
 }
