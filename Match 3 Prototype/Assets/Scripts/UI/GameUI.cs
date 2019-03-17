@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour
     public GameObject BackButton;
     public GameObject PauseButton;
     public GameObject MainMenuButton;
+    public GameObject TutorialButton;
     public GameObject PauseMenu;
     public GameObject Score_Text;
     public GameObject Cash_Text;
@@ -21,19 +22,21 @@ public class GameUI : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         Paused = true;
         BackButton.SetActive(true);
         MainMenuButton.SetActive(true);
+        //TutorialButton.SetActive(true);       //to be enabled later
         PauseMenu.SetActive(true);
         PauseButton.SetActive(false);
     }
     public void Back()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         Paused = false;
         BackButton.SetActive(false);
         MainMenuButton.SetActive(false);
+        //TutorialButton.SetActive(false);      //to be enabled later
         Shop.SetActive(false);
         Shop_Button.SetActive(true);
         Power_Up1.SetActive(false);

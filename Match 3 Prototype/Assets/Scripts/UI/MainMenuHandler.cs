@@ -28,7 +28,7 @@ public class MainMenuHandler : MonoBehaviour
         ShopButton.SetActive(false);
         TutorialButton.SetActive(false);
         LevelButtons.SetActive(true);
-        OptionsBackground.SetActive(false);
+        OptionsBackground.SetActive(true);
         ReturnButton.SetActive(true);
     }
     public void Options()
