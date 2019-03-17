@@ -61,7 +61,7 @@ public class TileController : MonoBehaviour {
 
 	void OnMouseOver()
 	{
-		if((!GameUI.Paused || GameUI.EmojiCrushActivated) && Input.GetMouseButtonDown(0) && SpawnIcons.CanPress && SpawnIcons.DoneShuffeling && SpawnIcons.DoneCheckingBoard )
+		if(!TextManager.LevelEnded && (!GameUI.Paused || GameUI.EmojiCrushActivated) && Input.GetMouseButtonDown(0) && SpawnIcons.CanPress && SpawnIcons.DoneShuffeling && SpawnIcons.DoneCheckingBoard )
 		{
 			IHaveBeenSelected(gameObject);
 		}

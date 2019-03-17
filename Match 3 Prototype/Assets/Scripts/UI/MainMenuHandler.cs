@@ -19,6 +19,7 @@ public class MainMenuHandler : MonoBehaviour
     public GameObject BackgroundImage;
     public GameObject OptionsBackground;
 
+
     // Methods for Menu
     public void LevelsMenu()
     {
@@ -58,8 +59,9 @@ public class MainMenuHandler : MonoBehaviour
         ExitButton.SetActive(true);
         ReturnButton.SetActive(false);
     }
-    public void Level()
+    public void Level(LevelInfo info)
     {
+        LoadLoadingInfo.currentLevel = info;
         SceneManager.LoadScene("Game");
     }
 }

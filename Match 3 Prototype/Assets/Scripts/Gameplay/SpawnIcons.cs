@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class SpawnIcons : MonoBehaviour {
 
-	[Header("Board Size")]
-	public int BoardWidth;
-	public int BoardHeight;
-
 	// Public Feilds
 	[Header("Tiles")]
-	public List<GameObject> TilePrefabs;
 	public GameObject HDirectionalPowerUp;
 	public GameObject VDirectionalPowerUp;
 	public GameObject BombPowerUp;
@@ -29,6 +24,7 @@ public class SpawnIcons : MonoBehaviour {
 
 
 	// Private Feilds
+	public List<GameObject> TilePrefabs;
 	private Vector2 BoardSize;
 	public static float tileSize;
 	private GameObject currentlySelected;
@@ -40,7 +36,6 @@ public class SpawnIcons : MonoBehaviour {
 	private List<Match> deleteLocations;
 	private bool foundMoves;
 	private float imageSize;
-	private bool IsPowerUpActivated;
 	
 
 	// Use this for initialization
@@ -50,9 +45,14 @@ public class SpawnIcons : MonoBehaviour {
 		DoneCheckingBoard = true;
 		DoneShuffeling = true;
 		CanPress = true;
-		IsPowerUpActivated = false;
+		goalEmoji = UIController.currentLevel.goalEmoji;
 		// Constant Size designed per level (From scriptable object later)
-		BoardSize = new Vector2(BoardWidth,BoardHeight);
+		BoardSize = new Vector2(UIController.currentLevel.xSize,UIController.currentLevel.ySize);
+		TilePrefabs = new List<GameObject>();
+		foreach(LevelEmojiInfo g in UIController.currentLevel.possibleEmoji)
+		{
+			TilePrefabs.Add(g.emojiType);
+		}
 		// Dynamic size based on screen size
 		Vector2 screenSize = new Vector2(Camera.main.orthographicSize * 2 * Camera.main.aspect, Camera.main.orthographicSize * 2); 
 		

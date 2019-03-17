@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TextManager : MonoBehaviour {
 
@@ -10,22 +12,26 @@ public class TextManager : MonoBehaviour {
     public TextMeshProUGUI MovesLeft;
     private int Moves;
     public TextMeshProUGUI EmojisText;
+    public Image GoalImage;
     private int Emojis;
     public bool GoalReached;
+    public static bool LevelEnded;
+    public LevelInfo currentLevel;
 
-    private void Start()
+    private void Awake()
     {
+        GameObject temp = GameObject.Find("LevelEditor");
         GoalReached = false;
-
+        currentLevel = LoadLoadingInfo.currentLevel;
         Score = 0;
         /*
          * load emoji from level file
          * load move limit from level file
          * 
          * */
-         Moves = 45;
-         Emojis = 30;
-
+        GoalImage.sprite = currentLevel.goalEmoji.GetComponent<SpriteRenderer>().sprite;
+        Moves = currentLevel.movesAvailable;
+        Emojis = currentLevel.RequiredEmojiAmmount;
         RegisterUpdate();
 
     }
@@ -33,8 +39,12 @@ public class TextManager : MonoBehaviour {
     void RegisterUpdate()
     {
         ScoreText.text = "Score: " + Score;
-        EmojisText.text = "Emojis Left: " + Emojis;
-        MovesLeft.text = "Moves Left: " + Moves;
+        EmojisText.text = "" + Emojis;
+        MovesLeft.text = "" + Moves;
+        if(Moves <= 0 || Emojis <= 0)
+        {
+            GameOver();
+        }
     }
     public void GoalEmojis(int emojidestroyed)
     {
@@ -55,5 +65,19 @@ public class TextManager : MonoBehaviour {
     {
         Score += score;
         RegisterUpdate();
+    }
+
+    public void GameOver()
+    {
+        LevelEnded = true;
+        if(Emojis >= 0)
+        {
+            GoalReached = true;
+        }
+
+
+        //Do end game stuff here
+        //Temp
+        SceneManager.LoadScene("MainMenu");
     }
 }
