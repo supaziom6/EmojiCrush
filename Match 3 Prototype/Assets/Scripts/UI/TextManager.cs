@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 public class TextManager : MonoBehaviour {
 
@@ -74,10 +74,5 @@ public class TextManager : MonoBehaviour {
         {
             GoalReached = true;
         }
-
-
-        //Do end game stuff here
-        //Temp
-        SceneManager.LoadScene("MainMenu");
     }
 }

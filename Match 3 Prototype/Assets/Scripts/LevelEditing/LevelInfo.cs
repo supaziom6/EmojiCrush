@@ -16,10 +16,6 @@ public struct LevelEmojiInfo
 [System.Serializable]
 public class LevelInfo : ScriptableObject 
 {
-
-	
-	
-
 	/// <summary>
 	///	Defines the types of emoji that can spawn
 	/// </summary>
@@ -36,4 +32,6 @@ public class LevelInfo : ScriptableObject
 	public GameObject goalEmoji;
 	public int RequiredEmojiAmmount;
 	public int movesAvailable;
+	[Tooltip("The next level if one exists, Allows for the next level button in the game")]
+	public LevelInfo nextLevel;
 }

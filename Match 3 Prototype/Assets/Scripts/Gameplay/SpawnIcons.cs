@@ -39,7 +39,7 @@ public class SpawnIcons : MonoBehaviour {
 	
 
 	// Use this for initialization
-	void Start () {
+	public void StartGame () {
 		imageSize = 7.5f;
 		foundMoves = false;
 		DoneCheckingBoard = true;
