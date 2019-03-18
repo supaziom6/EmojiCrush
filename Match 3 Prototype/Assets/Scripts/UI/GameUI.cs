@@ -49,7 +49,7 @@ public class GameUI : MonoBehaviour
 
     public void Pause()
     {
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
         Paused = true;
         BackButton.SetActive(true);
         MainMenuButton.SetActive(true);
@@ -59,7 +59,7 @@ public class GameUI : MonoBehaviour
     }
     public void Back()
     {
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
         Paused = false;
         BackButton.SetActive(false);
         MainMenuButton.SetActive(false);
