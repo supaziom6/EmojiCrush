@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
@@ -16,8 +18,33 @@ public class GameUI : MonoBehaviour
     public GameObject Shop;
     public GameObject Shop_Button;
     public GameObject Power_Up1;
+    public TextMeshProUGUI powerUp1Ammount;
     public GameObject Power_Up2;
+    public TextMeshProUGUI powerUp2Ammount;
     public GameObject EmojiCrushExplanation;
+
+    public void Awake()
+    {
+        SavingManager.PersistantData.AutoCorrectsOwned = 2;
+        powerUp1Ammount.text = SavingManager.PersistantData.AutoCorrectsOwned.ToString();
+        powerUp2Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
+        if(SavingManager.PersistantData.AutoCorrectsOwned == 0)
+        {
+            Power_Up1.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Power_Up1.GetComponent<Button>().interactable = true;
+        }
+        if(SavingManager.PersistantData.EmojiCrushOwned == 0)
+        {
+            Power_Up2.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Power_Up2.GetComponent<Button>().interactable = true;
+        }
+    }
 
     public void Pause()
     {
@@ -59,7 +86,21 @@ public class GameUI : MonoBehaviour
     }
     public void PowerUp1()
     {
-        //Do Something Here
+        Shop.SetActive(false);
+        Power_Up1.SetActive(false);
+        PauseMenu.SetActive(false);
+        Power_Up2.SetActive(false);
+        SavingManager.PersistantData.AutoCorrectsOwned -= 1;
+        powerUp1Ammount.text = SavingManager.PersistantData.AutoCorrectsOwned.ToString();
+        if(SavingManager.PersistantData.AutoCorrectsOwned == 0)
+        {
+            Power_Up1.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Power_Up1.GetComponent<Button>().interactable = true;
+        }
+        Back();
     }
     public void PowerUp2()
     {
@@ -69,7 +110,16 @@ public class GameUI : MonoBehaviour
         Power_Up2.SetActive(false);
         EmojiCrushExplanation.SetActive(true);
         EmojiCrushActivated = true;
-        //Do Something Here
+        SavingManager.PersistantData.EmojiCrushOwned -= 1;
+        powerUp1Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
+        if(SavingManager.PersistantData.EmojiCrushOwned == 0)
+        {
+            Power_Up2.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Power_Up2.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void cancelPowerUp()
