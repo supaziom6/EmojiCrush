@@ -12,6 +12,7 @@ public class SavingManager : MonoBehaviour {
 
 	void Awake()
 	{
+
 		if(INSTANCE == null)
 		{
 			INSTANCE = this;
@@ -21,10 +22,13 @@ public class SavingManager : MonoBehaviour {
 			Destroy(gameObject);
 		}
 		Load();
+
 	}
 
 	public static void Save()
 	{
+		print(Application.persistentDataPath);
+#if !UNITY_EDITOR
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + SaveFileLocation);
 
@@ -32,6 +36,7 @@ public class SavingManager : MonoBehaviour {
 
 		bf.Serialize(file, data);
 		file.Close();
+#endif
 	}
 
 	public static void Load()
