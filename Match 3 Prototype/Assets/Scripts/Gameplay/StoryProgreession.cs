@@ -19,7 +19,7 @@ public class StoryProgreession : MonoBehaviour {
 	void Start () {
 		// Take stuff from the story here and initialize it
 
-		
+		startGame();
 	}
 
 	/// <summary>
