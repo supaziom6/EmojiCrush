@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class MusicHandler: MonoBehaviour {
 
+    /// Stores instances for music adn sound variables but is only incharge of managing music volume
     private static MusicHandler INSTANCE;
-    public static float Volume = 1;
-    public AudioSource Audio;
-    public AudioSource Sound;
     public static bool MusicMuted;
     public static bool SoundMuted;
+    public static float Volume = 1;
+    public AudioSource Audio;
+    
     // Use this for initialization
     void Awake()
     {
@@ -19,7 +20,6 @@ public class MusicHandler: MonoBehaviour {
             INSTANCE = this;
 
             Audio.volume = Volume;
-            Sound.volume = Volume;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -36,14 +36,6 @@ public class MusicHandler: MonoBehaviour {
         else
         {
             Audio.volume = Volume;
-        }
-        if(SoundMuted)
-        {
-            Sound.volume = 0;
-        }
-        else
-        {
-            Sound.volume = Volume;
         }
 
     }

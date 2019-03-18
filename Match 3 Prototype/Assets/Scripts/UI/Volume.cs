@@ -6,17 +6,21 @@ using UnityEngine.UI;
 public class Volume : MonoBehaviour
 {
     public Slider slider;
-    public MusicHandler MH;
+
+    void Awake()
+    {
+        slider.value =  MusicHandler.Volume;
+    }
     public void OnValueChanged()
     {
-        MH.Audio.volume = slider.value;
+        MusicHandler.Volume = slider.value;
     }
-    public void ToggleMusic(bool MusicToggled)
+    public void ToggleMusic()
     {
-        MusicHandler.MusicMuted = MusicToggled;
+        MusicHandler.MusicMuted = !MusicHandler.MusicMuted;
     }
-    public void ToggleSoundEffects(bool SoundToggled)
+    public void ToggleSoundEffects()
     {
-        MusicHandler.SoundMuted = SoundToggled;
+        MusicHandler.SoundMuted = !MusicHandler.SoundMuted;
     }
 }
