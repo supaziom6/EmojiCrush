@@ -32,3 +32,4 @@ MonoBehaviour:
   goalEmoji: {fileID: 1534002950380682, guid: 424743e965649ff40af04972fe25b2b2, type: 2}
   RequiredEmojiAmmount: 25
   movesAvailable: 40
+  nextLevel: {fileID: 11400000, guid: abdb1b359942f2f4c829224940d4698f, type: 2}
