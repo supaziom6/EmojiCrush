@@ -669,7 +669,6 @@ public class SpawnIcons : MonoBehaviour {
 
 	void DeleteTiles(List<Match> loc)
 	{
-		print("Matches found :"+loc.Count);
 		foreach(Match m in loc)
 		{
 			// required to ensure no double powerup spawns

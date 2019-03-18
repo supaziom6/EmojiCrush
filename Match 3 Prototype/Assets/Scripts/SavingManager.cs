@@ -27,7 +27,6 @@ public class SavingManager : MonoBehaviour {
 
 	public static void Save()
 	{
-		print(Application.persistentDataPath);
 #if !UNITY_EDITOR
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + SaveFileLocation);
