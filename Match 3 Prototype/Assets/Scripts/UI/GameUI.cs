@@ -54,7 +54,7 @@ public class GameUI : MonoBehaviour
         Paused = true;
         BackButton.SetActive(true);
         MainMenuButton.SetActive(true);
-        //TutorialButton.SetActive(true);       //to be enabled later
+        TutorialButton.SetActive(true);       
         PauseMenu.SetActive(true);
         PauseButton.SetActive(false);
     }
@@ -64,7 +64,7 @@ public class GameUI : MonoBehaviour
         Paused = false;
         BackButton.SetActive(false);
         MainMenuButton.SetActive(false);
-        //TutorialButton.SetActive(false);      //to be enabled later
+        TutorialButton.SetActive(false);     
         Shop.SetActive(false);
         Shop_Button.SetActive(true);
         Power_Up1.SetActive(false);
