@@ -7,51 +7,44 @@ public class MusicHandler: MonoBehaviour {
 
     private static MusicHandler INSTANCE;
     public static float Volume = 1;
-    public Slider slider;
-    public Toggle Music;
     public AudioSource Audio;
     public AudioSource Sound;
+    public static bool MusicMuted;
+    public static bool SoundMuted;
     // Use this for initialization
     void Awake()
     {
         if(INSTANCE == null)
         {
             INSTANCE = this;
-            slider.value = Volume;
-        
-            DontDestroyOnLoad(GameObject.FindGameObjectWithTag("Music"));
+
+            Audio.volume = Volume;
+            Sound.volume = Volume;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
-        }
-        
+        }   
     }
-    public void OnValueChanged()
+    private void Update()
     {
-        Audio.volume = slider.value;
-        Volume = slider.value;
-    }
-    public void ToggleMusic(bool MusicToggled)
-    {
-        if (MusicToggled == false)
+        if(MusicMuted)
         {
             Audio.volume = 0;
         }
-        if(MusicToggled == true)
+        else
         {
-            Audio.volume = slider.value;
+            Audio.volume = Volume;
         }
-    }
-    public void ToggleSoundEffects(bool SoundToggled)
-    {
-        if(SoundToggled == false)
+        if(SoundMuted)
         {
             Sound.volume = 0;
         }
-        if (SoundToggled == true)
+        else
         {
-            Sound.volume = slider.value;
+            Sound.volume = Volume;
         }
+
     }
 }
