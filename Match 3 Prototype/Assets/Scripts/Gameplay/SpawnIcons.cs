@@ -224,6 +224,7 @@ public class SpawnIcons : MonoBehaviour {
         Match m = new Match();
         m.objectJoinedTogether.Add(g.GetComponent<TileController>().location);
         DeleteTiles(new List<Match>() { m });
+		SavingManager.Save();
     }
 
 	List<Match> ExplodeBomb(GameObject bomb, GameObject colorIdentifier)

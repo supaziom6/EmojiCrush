@@ -26,7 +26,8 @@ public class GameUI : MonoBehaviour
 
     public void Awake()
     {
-        SavingManager.PersistantData.AutoCorrectsOwned = 2;
+        Time.timeScale = 1;
+        Paused = false;
         powerUp1Ammount.text = SavingManager.PersistantData.AutoCorrectsOwned.ToString();
         powerUp2Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
         if(SavingManager.PersistantData.AutoCorrectsOwned == 0)
@@ -103,6 +104,7 @@ public class GameUI : MonoBehaviour
         {
             Power_Up1.GetComponent<Button>().interactable = true;
         }
+        SavingManager.Save();
         Back();
     }
     public void PowerUp2()
@@ -123,10 +125,13 @@ public class GameUI : MonoBehaviour
         {
             Power_Up2.GetComponent<Button>().interactable = true;
         }
+        
     }
 
     public void cancelPowerUp()
     {
+        SavingManager.PersistantData.EmojiCrushOwned += 1;
+        powerUp1Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
         Shop.SetActive(true);
         Power_Up1.SetActive(true);
         Power_Up2.SetActive(true);

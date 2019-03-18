@@ -6,9 +6,23 @@ using UnityEngine;
 
 public class SavingManager : MonoBehaviour {
 
+	public static SavingManager INSTANCE;
 	public static SaveData PersistantData = new SaveData();
 
-	public void Save()
+	void Awake()
+	{
+		if(INSTANCE == null)
+		{
+			INSTANCE = this;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+		Load();
+	}
+
+	public static void Save()
 	{
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + "/SaveFile.EmCr");
@@ -19,7 +33,7 @@ public class SavingManager : MonoBehaviour {
 		file.Close();
 	}
 
-	public void Load()
+	public static void Load()
 	{
 		if(File.Exists(Application.persistentDataPath + "/SaveFile.EmCr"))
 		{
@@ -30,7 +44,15 @@ public class SavingManager : MonoBehaviour {
 
 			PersistantData = data;
 		}
+		PersistantData.Coins = 100;
 	}
+
+	void OnApplicationQuit()
+	{
+		Save();
+	}
+
+
 }
 
 [System.Serializable]

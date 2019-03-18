@@ -29,6 +29,7 @@ public class Shop : MonoBehaviour {
 		SavingManager.PersistantData.Coins -= 100;
 		SavingManager.PersistantData.AutoCorrectsOwned += 1;
 		checkPrices();
+		SavingManager.Save();
 	}
 
 	public void buyEmojiCrush()
@@ -36,6 +37,7 @@ public class Shop : MonoBehaviour {
 		SavingManager.PersistantData.Coins -= 10;
 		SavingManager.PersistantData.EmojiCrushOwned += 1;
 		checkPrices();
+		SavingManager.Save();
 	}
 
 	private void checkPrices()
