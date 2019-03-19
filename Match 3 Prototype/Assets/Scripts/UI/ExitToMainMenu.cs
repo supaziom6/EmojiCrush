@@ -13,9 +13,14 @@ public class ExitToMainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         LoadLevel();
+        ExitGame();
 	}
     public void LoadLevel()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
