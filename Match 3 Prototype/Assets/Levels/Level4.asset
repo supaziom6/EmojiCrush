@@ -27,8 +27,12 @@ MonoBehaviour:
   - emojiType: {fileID: 1830527637576042, guid: 29901ce58255e8246b94af3a1ab4a86e,
       type: 2}
     spawnChance: 0
+  - emojiType: {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33,
+      type: 2}
+    spawnChance: 0
   xSize: 10
   ySize: 8
   goalEmoji: {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33, type: 2}
   RequiredEmojiAmmount: 35
   movesAvailable: 45
+  nextLevel: {fileID: 0}

@@ -116,7 +116,7 @@ public class GameUI : MonoBehaviour
         EmojiCrushExplanation.SetActive(true);
         EmojiCrushActivated = true;
         SavingManager.PersistantData.EmojiCrushOwned -= 1;
-        powerUp1Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
+        powerUp2Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
         if(SavingManager.PersistantData.EmojiCrushOwned == 0)
         {
             Power_Up2.GetComponent<Button>().interactable = false;
@@ -131,7 +131,7 @@ public class GameUI : MonoBehaviour
     public void cancelPowerUp()
     {
         SavingManager.PersistantData.EmojiCrushOwned += 1;
-        powerUp1Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
+        powerUp2Ammount.text = SavingManager.PersistantData.EmojiCrushOwned.ToString();
         Shop.SetActive(true);
         Power_Up1.SetActive(true);
         Power_Up2.SetActive(true);
