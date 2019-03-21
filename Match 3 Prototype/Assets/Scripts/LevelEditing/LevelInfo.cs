@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct LevelEmojiInfo 
@@ -34,4 +35,20 @@ public class LevelInfo : ScriptableObject
 	public int movesAvailable;
 	[Tooltip("The next level if one exists, Allows for the next level button in the game")]
 	public LevelInfo nextLevel;
+
+    [System.Serializable]
+    public struct Conversation
+    {
+        public TextMesh contactName;
+        public TextMesh contactMessage;
+        public TextMesh playerResponse;
+        public Image contactImage;
+        public Image playerImage;
+        public Image PlayerResponseEmoji;
+    }
+    //[System.Serializable]
+    //public struct Image
+    //{
+    //    public 
+    //}
 }
