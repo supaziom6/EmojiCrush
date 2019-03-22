@@ -34,6 +34,26 @@ public class StoryProgreession : MonoBehaviour {
 	{
 		if(TextManager.LevelEnded)
 		{
+			if(TextManager.WonTheGame)
+			{
+				int currentLevelNumber = LoadLoadingInfo.currentLevel.LevelNumber;
+
+				SavingManager.PersistantData.HighestLevelComplete = currentLevelNumber;
+				if(SavingManager.PersistantData.HighScores == null)
+				{
+					SavingManager.PersistantData.HighScores = new List<int>();
+					SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
+				}
+				else if(SavingManager.PersistantData.HighScores.Count < currentLevelNumber)
+				{
+					SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
+				}
+				else	
+				{
+					SavingManager.PersistantData.HighScores[currentLevelNumber-1]  = Initializer.UIController.Score;
+				}
+
+			}
 			// Put end game code here based on Initializer.UIController.GoalReached
 			endLevelWithMainMenu();
 		}

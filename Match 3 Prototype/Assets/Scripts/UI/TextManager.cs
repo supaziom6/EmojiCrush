@@ -8,20 +8,20 @@ using TMPro;
 public class TextManager : MonoBehaviour {
 
     public TextMeshProUGUI ScoreText;
-    private int Score;
+    public int Score;
     public TextMeshProUGUI MovesLeft;
     private int Moves;
     public TextMeshProUGUI EmojisText;
     public Image GoalImage;
     private int Emojis;
-    public bool GoalReached;
+    public static bool WonTheGame;
     public static bool LevelEnded;
     public LevelInfo currentLevel;
 
     private void Awake()
     {
         LevelEnded = false;
-        GoalReached = false;
+        WonTheGame = false;
         currentLevel = LoadLoadingInfo.currentLevel;
         Score = 0;
         /*
@@ -51,7 +51,7 @@ public class TextManager : MonoBehaviour {
         Emojis -= emojidestroyed;
         if(Emojis <= 0)
         {
-            GoalReached = true;
+            WonTheGame = true;
         }
         RegisterUpdate();
     }
@@ -72,7 +72,7 @@ public class TextManager : MonoBehaviour {
         LevelEnded = true;
         if(Emojis >= 0)
         {
-            GoalReached = true;
+            WonTheGame = true;
         }
     }
 }

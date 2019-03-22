@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
@@ -26,11 +27,18 @@ public class MainMenuHandler : MonoBehaviour
     void Start()
     {
         int length = LevelInfos.Count;
+        int highestLevelcomplete = SavingManager.PersistantData.HighestLevelComplete;
+
         for(int i = 0; i < length; i++)
         {
+            
             GameObject temp = Instantiate(LevelButtonPrefab);
             temp.GetComponent<RectTransform>().sizeDelta =new Vector2((Screen.width*0.8f) ,(Screen.height*0.1f));
             temp.transform.SetParent(LevelButtonParent.transform);
+            if(highestLevelcomplete+1 < LevelInfos[i].LevelNumber)
+            {
+                temp.GetComponent<Button>().interactable = false;
+            }
 
             temp.GetComponent<LevelButton>().info = LevelInfos[i];
         }
