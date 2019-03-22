@@ -15,7 +15,7 @@ public class ScreenScroll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        sb.value = 0;
+        sb.value = 1;
         maxHeight = ItemsList.rect.height;
         currentHeight = 0;
 	}

@@ -34,7 +34,16 @@ public class LevelInfo : ScriptableObject
 	public int RequiredEmojiAmmount;
 	public int movesAvailable;
 	[Tooltip("The next level if one exists, Allows for the next level button in the game")]
-	public LevelInfo nextLevel;
+	public LevelInfo nextLevel;	
+
+	[Header("Button Description")]
+	public Sprite ContactImage;
+	public string ContactName;
+	
+	/// <summary>
+	/// This number specifies which highscore should be pulled
+	/// </summary>
+	public int LevelNumber;
 
     [System.Serializable]
     public struct Conversation
@@ -46,9 +55,8 @@ public class LevelInfo : ScriptableObject
         public Image playerImage;
         public Image PlayerResponseEmoji;
     }
-    //[System.Serializable]
-    //public struct Image
-    //{
-    //    public 
-    //}
+
+	[Header("Story Items")]
+	public Conversation convo;
+
 }

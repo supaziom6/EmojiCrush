@@ -36,3 +36,13 @@ MonoBehaviour:
   RequiredEmojiAmmount: 35
   movesAvailable: 45
   nextLevel: {fileID: 0}
+  ContactImage: {fileID: 0}
+  ContactName: Woman
+  LevelNumber: 4
+  convo:
+    contactName: {fileID: 0}
+    contactMessage: {fileID: 0}
+    playerResponse: {fileID: 0}
+    contactImage: {fileID: 0}
+    playerImage: {fileID: 0}
+    PlayerResponseEmoji: {fileID: 0}

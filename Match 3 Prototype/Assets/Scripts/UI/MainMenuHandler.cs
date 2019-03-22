@@ -8,6 +8,8 @@ public class MainMenuHandler : MonoBehaviour
     // Main Menu Buttons
     public GameObject LevelButtons; // buttons for the levels
     public GameObject Levels; // button to select levels
+    public GameObject LevelButtonParent;
+    public GameObject LevelButtonPrefab;
     public GameObject ReturnButton;
     public GameObject OptionsButton;
     public GameObject ExitButton;
@@ -18,6 +20,21 @@ public class MainMenuHandler : MonoBehaviour
     // Sprites
     public GameObject BackgroundImage;
     public GameObject OptionsBackground;
+
+    public List<LevelInfo> LevelInfos;
+
+    void Start()
+    {
+        int length = LevelInfos.Count;
+        for(int i = 0; i < length; i++)
+        {
+            GameObject temp = Instantiate(LevelButtonPrefab);
+            temp.GetComponent<RectTransform>().sizeDelta =new Vector2((Screen.width*0.8f) ,(Screen.height*0.1f));
+            temp.transform.SetParent(LevelButtonParent.transform);
+
+            temp.GetComponent<LevelButton>().info = LevelInfos[i];
+        }
+    }
 
 
     // Methods for Menu
@@ -58,11 +75,6 @@ public class MainMenuHandler : MonoBehaviour
         OptionsMenu.SetActive(false);
         ExitButton.SetActive(true);
         ReturnButton.SetActive(false);
-    }
-    public void Level(LevelInfo info)
-    {
-        LoadLoadingInfo.currentLevel = info;
-        SceneManager.LoadScene("Game");
     }
 
     public void Shop()
