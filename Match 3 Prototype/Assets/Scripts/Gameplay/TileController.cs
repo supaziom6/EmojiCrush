@@ -21,6 +21,9 @@ public class TileController : MonoBehaviour {
 	public TileType TT;
 	[HideInInspector]
 	public TileColor color;
+	[HideInInspector]
+	public bool Moving;
+	
 
 	void Awake(){
 		TT = GetComponent<EmojiType>().TT;
@@ -50,13 +53,19 @@ public class TileController : MonoBehaviour {
 
 	IEnumerator MoveTileIntoPosition()
 	{
+		Moving = true;
 		Vector3 targetLocation = new Vector3 ((location.x*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.x,(location.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y,transform.position.z);
 		for(float i = 0; i < 1; i+= tileFallSpeed/1000)
 		{
 			transform.position = Vector3.Lerp(transform.position, targetLocation, i);
 			yield return new WaitForSeconds(0.01f);
+			if(i>=0.7f)
+			{
+				Moving = false;
+			}
 		}
 		transform.position = targetLocation;
+		
 	}
 
 	void OnMouseOver()
