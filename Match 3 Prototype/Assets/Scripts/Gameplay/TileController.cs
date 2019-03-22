@@ -28,7 +28,7 @@ public class TileController : MonoBehaviour {
 	void Awake(){
 		TT = GetComponent<EmojiType>().TT;
 		color = GetComponent<EmojiType>().TC;
-		tileFallSpeed = 20;
+		tileFallSpeed = 50;
 		scannedHorizontally = false;
 		scannedVertically = false;
 	}
@@ -59,7 +59,7 @@ public class TileController : MonoBehaviour {
 		{
 			transform.position = Vector3.Lerp(transform.position, targetLocation, i);
 			yield return new WaitForSeconds(0.01f);
-			if(i>=0.7f)
+			if(i>=0.9f)
 			{
 				Moving = false;
 			}
