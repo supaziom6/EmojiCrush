@@ -69,10 +69,14 @@ public class TextManager : MonoBehaviour {
 
     public void GameOver()
     {
-        LevelEnded = true;
-        if(Emojis >= 0)
+        if(Emojis <= 0)
         {
             WonTheGame = true;
         }
+        else{
+            WonTheGame = false;
+        }
+        LevelEnded = true;
+        
     }
 }

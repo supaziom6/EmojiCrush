@@ -62,11 +62,11 @@ public class SpawnIcons : MonoBehaviour {
 		Vector2 screenSize = new Vector2(Camera.main.orthographicSize * 2 * Camera.main.aspect, Camera.main.orthographicSize * 2); 
 		
 		tileSize = screenSize.x/(BoardSize.x);
-		if(BoardSize.y*tileSize > screenSize.y*0.8f)
+		if(BoardSize.y*tileSize > screenSize.y*0.6f)
 		{
-			tileSize = (screenSize.y/BoardSize.y)*0.8f;
+			tileSize = (screenSize.y/BoardSize.y)*0.6f;
 		}
-		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2)+(screenSize.y*0.01f));
+		BorderLimit = new Vector2(((tileSize*BoardSize.x)/2)-(tileSize/2),((tileSize*BoardSize.y)/2));
 		locationAndAmmountOfTilesToReplanish = new int[(int)BoardSize.x];
 
 		// Spawn background tiles (Dynamic board background)

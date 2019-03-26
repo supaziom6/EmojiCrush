@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -14,7 +16,14 @@ public class StoryProgreession : MonoBehaviour {
 	///  Reference to the main Game Script Which allows for the game to start and receive callbacks when the game is finished
 	/// </summary>
 	public SpawnIcons Initializer;
-
+	/// <summary>
+	/// Temporary Screen for the end of the game
+	/// </summary>
+	public GameObject EndGameScreen;
+	public Button nextLevel;
+	public TextMeshProUGUI Score;
+	public TextMeshProUGUI EndGameTitle;
+	private bool EndGameHandeled;
 	// Use this for initialization
 	void Start () {
 		// Take stuff from the story here and initialize it
@@ -32,7 +41,7 @@ public class StoryProgreession : MonoBehaviour {
 
 	void Update()
 	{
-		if(TextManager.LevelEnded)
+		if(!EndGameHandeled&&TextManager.LevelEnded)
 		{
 			if(TextManager.WonTheGame)
 			{
@@ -52,17 +61,29 @@ public class StoryProgreession : MonoBehaviour {
 				{
 					SavingManager.PersistantData.HighScores[currentLevelNumber-1]  = Initializer.UIController.Score;
 				}
-
+				EndGameTitle.text = "Winner";
 			}
+			else
+			{
+				EndGameTitle.text = "You Lost";
+			}
+
+			if(LoadLoadingInfo.currentLevel.LevelNumber < SavingManager.PersistantData.HighestLevelComplete || LoadLoadingInfo.currentLevel.nextLevel == null)
+			{
+				nextLevel.interactable = false;
+			}
+			Score.text = Initializer.UIController.Score.ToString();
+
 			// Put end game code here based on Initializer.UIController.GoalReached
-			endLevelWithMainMenu();
+			EndGameHandeled = true;
+			EndGameScreen.SetActive(true);
 		}
 	}
 
 	/// <summary>
 	/// User decides to goback to mainmenu
 	/// </summary>
-	void endLevelWithMainMenu()
+	public void endLevelWithMainMenu()
 	{
 		SceneManager.LoadScene("MainMenu");
 	}
@@ -70,7 +91,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// <summary>
 	/// Users decides to replay the level
 	/// </summary>
-	void endLevelWithRetry()
+	public void endLevelWithRetry()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
@@ -78,7 +99,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// <summary>
 	/// User decides to continue to the next level
 	/// </summary>
-	void endLevelWithNextLevel()
+	public void endLevelWithNextLevel()
 	{
 		LoadLoadingInfo.currentLevel = LoadLoadingInfo.currentLevel.nextLevel;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
