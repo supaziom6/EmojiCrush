@@ -778,28 +778,51 @@ public class SpawnIcons : MonoBehaviour {
 					if(board[(int)l.x,(int)l.y] != null)
 					{
 						destroyCount ++;
-
-						DestoryTile(l);
-
-						if(l != spwanPowerPosition){
-							locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
-						}
 					}
 				}
 
-				if(destroyCount > 4)
-				{
-					spawnSpecialTile(BombPowerUp,spwanPowerPosition);
-				}
-				else if(destroyCount == 4)
-				{
-					if(m.objectJoinedTogether[0].x == m.objectJoinedTogether[1].x)
+				if(destroyCount >= 4)
+				{	
+					foreach(Vector2 l in m.objectJoinedTogether)
 					{
-						spawnSpecialTile(HDirectionalPowerUp,spwanPowerPosition);
+						if(board[(int)l.x,(int)l.y] != null)
+						{
+							DestoryTileAfterMoving(l, spwanPowerPosition);
+							if(l != spwanPowerPosition){
+								locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
+							}
+						}
+					}
+					
+					if(destroyCount == 4)
+					{
+						if(m.objectJoinedTogether[0].x == m.objectJoinedTogether[1].x)
+						{
+							spawnSpecialTile(HDirectionalPowerUp,spwanPowerPosition);
+						}
+						else
+						{
+							spawnSpecialTile(VDirectionalPowerUp,spwanPowerPosition);
+						}
 					}
 					else
 					{
-						spawnSpecialTile(VDirectionalPowerUp,spwanPowerPosition);
+						spawnSpecialTile(BombPowerUp,spwanPowerPosition);
+					}
+
+					
+				}
+				else
+				{
+					foreach(Vector2 l in m.objectJoinedTogether)
+					{
+						if(board[(int)l.x,(int)l.y] != null)
+						{
+							DestoryTile(l);
+							if(l != spwanPowerPosition){
+								locationAndAmmountOfTilesToReplanish[(int)l.x] +=1;
+							}
+						}
 					}
 				}
 
@@ -841,6 +864,19 @@ public class SpawnIcons : MonoBehaviour {
 		Instantiate(Explosion ,spawnPosition , Quaternion.identity);
 		Destroy(board[(int)l.x,(int)l.y]);
 		board[(int)l.x,(int)l.y] = null;
+	}
+
+	public void DestoryTileAfterMoving(Vector2 l, Vector2 LocationToMove)
+	{
+		// delete all locations 
+		UIController.UpdateScore(100);
+		if(board[(int)l.x,(int)l.y].GetComponent<EmojiType>().TC == goalEmoji.GetComponent<EmojiType>().TC)
+		{
+			UIController.GoalEmojis(1);
+		}
+		board[(int)l.x,(int)l.y].GetComponent<TileController>().FuzeTiles(LocationToMove);
+		board[(int)l.x,(int)l.y] = null;
+
 	}
 
 	void spawnTiles(int loc, int numberToSpawn){

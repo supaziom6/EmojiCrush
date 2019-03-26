@@ -70,6 +70,28 @@ public class TileController : MonoBehaviour {
 		
 	}
 
+	public void FuzeTiles(Vector2 Locaction)
+	{
+		StartCoroutine(MoveTileThenDestroy(Locaction));
+	}
+
+	IEnumerator MoveTileThenDestroy(Vector2 l)
+	{
+		Moving = true;
+		Vector3 targetLocation = new Vector3 ((l.x*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.x,(l.y*SpawnIcons.tileSize)-SpawnIcons.BorderLimit.y,transform.position.z);
+		for(float i = 0; i < 1; i+= tileFallSpeed/1000)
+		{
+			transform.position = Vector3.Lerp(transform.position, targetLocation, i);
+			yield return new WaitForSeconds(0.01f);
+			if(i>=0.9f)
+			{
+				Moving = false;
+			}
+		}
+		transform.position = targetLocation;
+		Destroy(gameObject);
+	}
+
 	void OnMouseOver()
 	{
 		if(!TextManager.LevelEnded && (!GameUI.Paused || GameUI.EmojiCrushActivated) && Input.GetMouseButtonDown(0) && SpawnIcons.CanPress && SpawnIcons.DoneShuffeling && SpawnIcons.DoneCheckingBoard )

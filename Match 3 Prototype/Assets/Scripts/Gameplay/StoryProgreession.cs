@@ -85,6 +85,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// </summary>
 	public void endLevelWithMainMenu()
 	{
+		SavingManager.Save();
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -93,6 +94,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// </summary>
 	public void endLevelWithRetry()
 	{
+		SavingManager.Save();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
@@ -101,6 +103,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// </summary>
 	public void endLevelWithNextLevel()
 	{
+		SavingManager.Save();
 		LoadLoadingInfo.currentLevel = LoadLoadingInfo.currentLevel.nextLevel;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}

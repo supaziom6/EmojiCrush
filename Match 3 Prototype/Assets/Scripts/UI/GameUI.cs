@@ -87,6 +87,7 @@ public class GameUI : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;
+        SavingManager.Save();
         SceneManager.LoadScene("MainMenu");
     }
     public void PowerUp1()
