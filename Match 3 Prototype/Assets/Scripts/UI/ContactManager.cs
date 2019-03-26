@@ -4,217 +4,170 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ContactManager : MonoBehaviour {
-
-    //Public arrays
-    public string[] contactName = new string[10];
-    public string[] contactMessage = new string[10];
-    public string[] correctResponses = new string[20];
-    public string[] incorrectResponses = new string[20];
-
-    //Text
-    public Text conName;
-    public Text conMessage;
-    public Text playerCorrectResponse;
-    public Text playerIncorrectResponse;
-
-    //Game state flag - THIS IS ONLY TEMPORARY FLAG
-    bool hasWon = false;
-
-    //Buttons
-    public GameObject continueButton;
-    // Use this for initialization
-    void Start () {
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        ContactNames();
-        ContactMessage();
-        ContactMessage();
-	}
-    public void ContactNames()
+    [System.Serializable]
+    public struct ContactDetails
     {
-        contactName = new string[]
-        {
-            "Mom",
-            "Brother",
-            "Doctor",
-            "Boss",
-            "Colleague",
-            "Cousin",
-            "Friend",
-            "GrandMa",
-            "Uber",
-            "Dominos",
-        };
+        //public TextMesh contactName;
+        //public TextMesh contactMessage;
+        //public TextMesh playerResponse;
+        //public Image contactImage;
+        //public Image playerImage;
+        //public Image PlayerResponseEmoji;
     }
-    public void ContactMessage()
+
+    [CreateAssetMenu(fileName = "ContactManager", menuName = "LevelEditor", order = 0)]
+    [System.Serializable]
+    public class ContactManager : ScriptableObject
     {
-        for(int i = 0; i < contactName.Length; i++)
+
+        //Contacts mycontact;
+        /// <summary>
+        ///	Used to create contact information for each level
+        /// </summary>
+        [Header("Contact Info")]
+        public Image contactImage;
+        public TextMesh contactName;
+        public TextMesh contactMessage;
+
+    [Header("Player Info")]
+        public Image playerImage;
+        public TextMesh playerResponse;
+        public TextMesh ResponseEmoji;
+    }
+    [System.Serializable]
+    enum ContactNames
+    {
+        Mom,
+        Brother,
+        Doctor,
+        Boss,
+        Colleague,
+        Cousin,
+        Friend,
+        GrandMa,
+        Uber,
+        Dominos
+    }
+    [System.Serializable]
+    enum ContactMessages
+    {
+        MomMessage,
+        BrotherMessage,
+        DoctorMessage,
+        BossMessage,
+        ColleagueMessage,
+        CousinMessage,
+        FriendMessage,
+        GrandmaMessage,
+        UberMessage,
+        DominosMessage
+    }
+    [System.Serializable]
+    enum CorrectResponses
+    {
+        CorrectResponseToMom,
+        CorrectResponseToBrother,
+        CorrectResponseToDoctor,
+        CorrectResponseToBoss,
+        CorrectResponseToColleague,
+        CorrectResponseToCousin,
+        CorrectResponseToFriend,
+        CorrectResponseToGrandma,
+        CorrectResponseToUber,
+        CorrectResponseToDominos
+    }
+    [System.Serializable]
+    enum IncorrectResponses
+    {
+        IncorrectResponseToMom,
+        IncorrectResponseToBrother,
+        IncorrectResponseToDoctor,
+        IncorrectResponseToBoss,
+        IncorrectResponseToColleague,
+        IncorrectResponseToCousin,
+        IncorrectResponseToFriend,
+        IncorrectResponseToGrandma,
+        IncorrectResponseToUber,
+        IncorrectResponseToDominos
+    }
+public static class myClass
+{
+    public static string ContactMessagesValue(this ContactMessages cM)
+    {
+        switch (cM)
         {
-            //Mom
-            if(contactName[i].Equals("Mom"))
-            {
-                contactMessage[0] = "Pick up the phone!";
-            }
-            //Brother
-            else if (contactName[i].Equals("Brother"))
-            {
-                contactMessage[1] = "Wanna get some food?";
-            }
-            //Doctor
-            else if (contactName[i].Equals("Doctor"))
-            {
-                contactMessage[2] = "Hello! Just letting you know your annual checkup is coming up soon";
-            }
-            //Boss
-            else if (contactName[i].Equals("Boss"))
-            {
-                contactMessage[3] = "Please meet me tomorrow in my office";
-            }
-            //Colleague
-            else if (contactName[i].Equals("Colleague"))
-            {
-                contactMessage[4] = "Can you cover my shift tomorrow?";
-            }
-            //Cousin
-            else if (contactName[i].Equals("Cousin"))
-            {
-                contactMessage[5] = "We should hang out sometime, message me if you are available";
-            }
-            //Friend
-            else if (contactName[i].Equals("Friend"))
-            {
-                contactMessage[6] = "Wanna get pizza and watch a movie tonight?";
-            }
-            //Grandma
-            else if (contactName[i].Equals("GrandMa"))
-            {
-                contactMessage[7] = "YOU KNOW I AM STILL ALIVE DEAR YOU SHOULD VISIT SOMETIMES";
-            }
-            //Uber
-            else if (contactName[i].Equals("Uber"))
-            {
-                contactMessage[8] = "Will be at your house soon";
-            }
-            //Dominos
-            else if (contactName[i].Equals("Dominos"))
-            {
-                contactMessage[9] = "What toppings would you like on your pizza?";
-            }
+            case ContactMessages.MomMessage:
+                return "Pick up the phone!";
+            case ContactMessages.BrotherMessage:
+                return "Wanna get some food?";
+            case ContactMessages.DoctorMessage:
+                return "Hello! Just letting you know your annual checkup is coming up soon";
+            case ContactMessages.BossMessage:
+                return "Please meet me tomorrow in my office";
+            case ContactMessages.ColleagueMessage:
+                return "Can you cover my shift tomorrow?";
+            case ContactMessages.CousinMessage:
+                return "We should hang out sometime, message me if you are available";
+            case ContactMessages.FriendMessage:
+                return "Wanna get pizza and watch a movie tonight?";
+            case ContactMessages.GrandmaMessage:
+                return "YOU KNOW I AM STILL ALIVE DEAR YOU SHOULD VISIT SOMETIMES";
+            case ContactMessages.UberMessage:
+                return "Will be at your house soon";
+            case ContactMessages.DominosMessage:
+                return "What toppings would you like on your pizza?";
         }
     }
-    public void CorrectResponses()
+    public static string CorrectResponsesValue(this CorrectResponses cR)
     {
-        for(int i = 0; i < correctResponses.Length; i++)
+        switch(cR)
         {
-            //Mom
-            if (contactName[i].Equals("Mom") && hasWon)
-            {
-                correctResponses[0] = "I will call you back soon";
-            }
-            //Brother
-            else if (contactName[i].Equals("Brother") && hasWon)
-            {
-                correctResponses[1] = "Sure, let me know where you want to eat";
-            }
-            //Doctor
-            else if (contactName[i].Equals("Doctor") && hasWon)
-            {
-                correctResponses[2] = "Thanks for the reminder";
-            }
-            //Boss
-            else if (contactName[i].Equals("Boss") && hasWon)
-            {
-                correctResponses[3] = "I will be in your office first thing in the morning";
-            }
-            //Colleague
-            else if (contactName[i].Equals("Colleague") && hasWon)
-            {
-                correctResponses[4] = "I sure can";
-            }
-            //Cousin
-            else if (contactName[i].Equals("Cousin") && hasWon)
-            {
-                correctResponses[5] = "We could hang out friday";
-            }
-            //Friend
-            else if (contactName[i].Equals("Friend") && hasWon)
-            {
-                correctResponses[6] = "I'll meet you at your place tonight";
-            }
-            //Grandma
-            else if (contactName[i].Equals("GrandMa") && hasWon)
-            {
-                correctResponses[7] = "I know grandma, but I have been super busy, much love";
-            }
-            //Uber
-            else if (contactName[i].Equals("Uber") && hasWon)
-            {
-                correctResponses[8] = "I'll be right outside";
-            }
-            //Dominos
-            else if (contactName[i].Equals("Dominos") && hasWon)
-            {
-                correctResponses[9] = "Bananas and cheese";
-            }
+            case CorrectResponses.CorrectResponseToMom:
+                return "I will call you back soon";
+            case CorrectResponses.CorrectResponseToBrother:
+                return "Sure, let me know where you want to eat";
+            case CorrectResponses.CorrectResponseToDoctor:
+                return "Thanks for the reminder";
+            case CorrectResponses.CorrectResponseToBoss:
+                return "I will be in your office first thing in the morning";
+            case CorrectResponses.CorrectResponseToColleague:
+                return "I sure can";
+            case CorrectResponses.CorrectResponseToCousin:
+                return "We could hang out friday";
+            case CorrectResponses.CorrectResponseToFriend:
+                return "I'll meet you at your place tonight";
+            case CorrectResponses.CorrectResponseToGrandma:
+                return "I know grandma, but I have been super busy, much love";
+            case CorrectResponses.CorrectResponseToUber:
+                return "I'll be right outside";
+            case CorrectResponses.CorrectResponseToDominos:
+                return "Bananas and cheese";
         }
     }
-    public void IncorrectResponses()
+    public static string IncorrectResponsesValue(this IncorrectResponses iR)
     {
-        for(int i = 0; i < incorrectResponses.Length; i++)
+        switch(iR)
         {
-            //Mom
-            if (contactName[i].Equals("Mom") && hasWon == false)
-            {
-                incorrectResponses[0] = "I'm busy mom";
-            }
-            //Brother
-            else if (contactName[i].Equals("Brother") && hasWon == false)
-            {
-                incorrectResponses[1] = "I can't, also Mr Whiskers died, sorry to tell you this now";
-            }
-            //Doctor
-            else if (contactName[i].Equals("Doctor") && hasWon == false)
-            {
-                incorrectResponses[2] = "I don't recognise this number";
-            }
-            //Boss
-            else if (contactName[i].Equals("Boss") && hasWon == false)
-            {
-                correctResponses[3] = "I'm not going to work anymore";
-            }
-            //Colleague
-            else if (contactName[i].Equals("Colleague") && hasWon == false)
-            {
-                incorrectResponses[4] = "No Brian, you keep on talking about Bitcoin and it honestly upsets me";
-            }
-            //Cousin
-            else if (contactName[i].Equals("Cousin") && hasWon == false)
-            {
-                incorrectResponses[5] = "I'm busy this week";
-            }
-            //Friend
-            else if (contactName[i].Equals("Friend") && hasWon == false)
-            {
-                incorrectResponses[6] = "Already made plans tonight";
-            }
-            //Grandma
-            else if (contactName[i].Equals("GrandMa") && hasWon == false)
-            {
-                incorrectResponses[7] = "I will come sometime next week to visit";
-            }
-            //Uber
-            else if (contactName[i].Equals("Uber") && hasWon == false)
-            {
-                incorrectResponses[8] = "Who is this?";
-            }
-            //Dominos
-            else if (contactName[i].Equals("Dominos") && hasWon == false)
-            {
-                incorrectResponses[9] = "Pineapples";
-            }
+            case IncorrectResponses.IncorrectResponseToMom:
+                return "I'm busy mom";
+            case IncorrectResponses.IncorrectResponseToBrother:
+                return "I can't, also Mr Whiskers died, sorry to tell you this now";
+            case IncorrectResponses.IncorrectResponseToDoctor:
+                return "I don't recognise this number";
+            case IncorrectResponses.IncorrectResponseToBoss:
+                return "I'm not going to work anymore";
+            case IncorrectResponses.IncorrectResponseToColleague:
+                return "No Brian, you keep on talking about Bitcoin and it honestly upsets me";
+            case IncorrectResponses.IncorrectResponseToCousin:
+                return "I'm busy this week";
+            case IncorrectResponses.IncorrectResponseToFriend:
+                return "Already made plans tonight";
+            case IncorrectResponses.IncorrectResponseToGrandma:
+                return "I will come sometime next week to visit";
+            case IncorrectResponses.IncorrectResponseToUber:
+                return "Who is this?";
+            case IncorrectResponses.IncorrectResponseToDominos:
+                return "Pineapples";
         }
     }
 }

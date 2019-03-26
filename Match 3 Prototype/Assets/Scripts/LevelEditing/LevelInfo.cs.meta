@@ -3,7 +3,10 @@ guid: 391aabea5af5ce14ca7436e90f980999
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - goalEmoji: {instanceID: 0}
+  - nextLevel: {instanceID: 0}
+  - ContactImage: {fileID: 21300016, guid: 79bce937e0e7eea42b67a30360d52d7c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
