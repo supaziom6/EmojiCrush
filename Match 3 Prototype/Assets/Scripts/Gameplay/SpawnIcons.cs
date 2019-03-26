@@ -254,42 +254,102 @@ public class SpawnIcons : MonoBehaviour {
 
 	}
 
-	List<Match> HorizontalDestroy(GameObject emoji)
-	{
-		int yPos = (int)emoji.GetComponent<TileController>().location.y;
-		List<Match> m = new List<Match>();
-		Match emopjitemp = new Match();
-		emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
-		m.Add(emopjitemp);
-		for(int i = 0; i < board.GetLength(0); i++)
+	List<Match> checkforChainPowerUp(List<Match> m , int locationX, int locationY){
+		
+		TileType type = board[locationX,locationY].GetComponent<TileController>().TT;
+					
+		if(type != TileType.Normal)
 		{
-			if(board[i,yPos] != null)
+			List<Match> TempList = new List<Match>();	
+			if(type == TileType.DirectionalH)
 			{
-				Match temp = new Match();
-				temp.objectJoinedTogether.Add(board[i,yPos].GetComponent<TileController>().location);
-				m.Add(temp);
+				TempList = HorizontalDestroy(board[locationX,locationY]);
+			}
+			else if(type == TileType.DirectionalV)
+			{
+				TempList = VerticalDestroy(board[locationX,locationY]);
+			}
+			else
+			{
+				GameObject colorIdentifier = null;
+				do
+				{
+					int rX = Random.Range(0,(int)BoardSize.x);
+					int rY = Random.Range(0,(int)BoardSize.y);
+					colorIdentifier = board[rX,rY];
+					if(colorIdentifier != null && colorIdentifier.GetComponent<TileController>().color == TileColor.NA)
+					{
+						colorIdentifier = null;
+					}
+				}
+				while(colorIdentifier == null);
+				TempList = ExplodeBomb(board[locationX,locationY] , colorIdentifier);
+			}
+			foreach(Match match in TempList)
+			{
+				m.Add(match);
 			}
 		}
+		
+		
+		
 		return m;
+	}
+
+	List<Match> HorizontalDestroy(GameObject emoji)
+	{
+		if(emoji.GetComponent<TileController>().PowerUPActivated != true)
+		{
+			emoji.GetComponent<TileController>().PowerUPActivated = true;
+			int yPos = (int)emoji.GetComponent<TileController>().location.y;
+			List<Match> m = new List<Match>();
+			Match emopjitemp = new Match();
+			emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
+			m.Add(emopjitemp);
+			for(int i = 0; i < board.GetLength(0); i++)
+			{
+				if(board[i,yPos] != null)
+				{
+					Match temp = new Match();
+					temp.objectJoinedTogether.Add(board[i,yPos].GetComponent<TileController>().location);
+					m = checkforChainPowerUp(m,i,yPos);
+					m.Add(temp);
+				}
+			}
+			return m;
+		}
+		else
+		{
+			return new List<Match>();
+		}
 	}
 
 	List<Match> VerticalDestroy(GameObject emoji)
 	{
-		int xPos = (int)emoji.GetComponent<TileController>().location.x;
-		List<Match> m = new List<Match>();
-		Match emopjitemp = new Match();
-		emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
-		m.Add(emopjitemp);
-		for(int i = 0; i < board.GetLength(1); i++)
+		if(emoji.GetComponent<TileController>().PowerUPActivated != true)
 		{
-			if(board[xPos,i] != null)
+			emoji.GetComponent<TileController>().PowerUPActivated = true;
+			int xPos = (int)emoji.GetComponent<TileController>().location.x;
+			List<Match> m = new List<Match>();
+			Match emopjitemp = new Match();
+			emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
+			m.Add(emopjitemp);
+			for(int i = 0; i < board.GetLength(1); i++)
 			{
-				Match temp = new Match();
-				temp.objectJoinedTogether.Add(board[xPos,i].GetComponent<TileController>().location);
-				m.Add(temp);
+				if(board[xPos,i] != null)
+				{
+					Match temp = new Match();
+					temp.objectJoinedTogether.Add(board[xPos,i].GetComponent<TileController>().location);
+					m = checkforChainPowerUp(m,xPos,i);
+					m.Add(temp);
+				}
 			}
+			return m;
 		}
-		return m;
+		else
+		{
+			return new List<Match>();
+		}
 	}
 
 	bool TilesAdjacent(GameObject a, GameObject b)

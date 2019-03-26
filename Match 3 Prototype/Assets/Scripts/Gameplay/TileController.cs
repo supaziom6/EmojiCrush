@@ -23,6 +23,8 @@ public class TileController : MonoBehaviour {
 	public TileColor color;
 	[HideInInspector]
 	public bool Moving;
+	[HideInInspector]
+	public bool PowerUPActivated;
 	
 
 	void Awake(){
