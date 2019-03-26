@@ -4,95 +4,65 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-    [System.Serializable]
-    public struct ContactDetails
-    {
-        //public TextMesh contactName;
-        //public TextMesh contactMessage;
-        //public TextMesh playerResponse;
-        //public Image contactImage;
-        //public Image playerImage;
-        //public Image PlayerResponseEmoji;
-    }
+// [System.Serializable]
+// public struct ContactDetails
+// {
+//     //public TextMesh contactName;
+//     //public TextMesh contactMessage;
+//     //public TextMesh playerResponse;
+//     //public Image contactImage;
+//     //public Image playerImage;
+//     //public Image PlayerResponseEmoji;
+// }
 
-    [CreateAssetMenu(fileName = "ContactManager", menuName = "LevelEditor", order = 0)]
-    [System.Serializable]
-    public class ContactManager : ScriptableObject
-    {
+[System.Serializable]
+public enum ContactNames
+{
+    Mom,Brother,Doctor,Boss,Colleague,Cousin,Friend,GrandMa,Uber,Dominos
+}
 
-        //Contacts mycontact;
-        /// <summary>
-        ///	Used to create contact information for each level
-        /// </summary>
-        [Header("Contact Info")]
-        public Image contactImage;
-        public TextMesh contactName;
-        public TextMesh contactMessage;
+[System.Serializable]
+public enum ContactMessages
+{
+    MomMessage,BrotherMessage,DoctorMessage,BossMessage,ColleagueMessage,CousinMessage,FriendMessage,GrandmaMessage,UberMessage,DominosMessage
+}
 
-    [Header("Player Info")]
-        public Image playerImage;
-        public TextMesh playerResponse;
-        public TextMesh ResponseEmoji;
-    }
-    [System.Serializable]
-    enum ContactNames
-    {
-        Mom,
-        Brother,
-        Doctor,
-        Boss,
-        Colleague,
-        Cousin,
-        Friend,
-        GrandMa,
-        Uber,
-        Dominos
-    }
-    [System.Serializable]
-    enum ContactMessages
-    {
-        MomMessage,
-        BrotherMessage,
-        DoctorMessage,
-        BossMessage,
-        ColleagueMessage,
-        CousinMessage,
-        FriendMessage,
-        GrandmaMessage,
-        UberMessage,
-        DominosMessage
-    }
-    [System.Serializable]
-    enum CorrectResponses
-    {
-        CorrectResponseToMom,
-        CorrectResponseToBrother,
-        CorrectResponseToDoctor,
-        CorrectResponseToBoss,
-        CorrectResponseToColleague,
-        CorrectResponseToCousin,
-        CorrectResponseToFriend,
-        CorrectResponseToGrandma,
-        CorrectResponseToUber,
-        CorrectResponseToDominos
-    }
-    [System.Serializable]
-    enum IncorrectResponses
-    {
-        IncorrectResponseToMom,
-        IncorrectResponseToBrother,
-        IncorrectResponseToDoctor,
-        IncorrectResponseToBoss,
-        IncorrectResponseToColleague,
-        IncorrectResponseToCousin,
-        IncorrectResponseToFriend,
-        IncorrectResponseToGrandma,
-        IncorrectResponseToUber,
-        IncorrectResponseToDominos
-    }
+[System.Serializable]
+public enum CorrectResponses
+{
+    CorrectResponseToMom,CorrectResponseToBrother,CorrectResponseToDoctor,CorrectResponseToBoss,CorrectResponseToColleague,
+    CorrectResponseToCousin,CorrectResponseToFriend,CorrectResponseToGrandma,CorrectResponseToUber,CorrectResponseToDominos
+}
+[System.Serializable]
+public enum IncorrectResponses
+{
+    IncorrectResponseToMom,IncorrectResponseToBrother,IncorrectResponseToDoctor,IncorrectResponseToBoss,IncorrectResponseToColleague,
+    IncorrectResponseToCousin,IncorrectResponseToFriend,IncorrectResponseToGrandma,IncorrectResponseToUber,IncorrectResponseToDominos
+}
+
+[CreateAssetMenu(fileName = "ContactManager", menuName = "LevelEditor", order = 0)]
+[System.Serializable]
+public class ContactManager : ScriptableObject
+{
+
+    //Contacts mycontact;
+    /// <summary>
+    ///	Used to create contact information for each level
+    /// </summary>
+    [Header("Contact Info")]
+    public Image contactImage;
+    public TextMesh contactName;
+    public TextMesh contactMessage;
+
+[Header("Player Info")]
+    public Image playerImage;
+    public TextMesh playerResponse;
+    public TextMesh ResponseEmoji;
+}
+
 public static class myClass
 {
-    public static string ContactMessagesValue(this ContactMessages cM)
+    public static string ContactMessagesValue(ContactMessages cM)
     {
         switch (cM)
         {
@@ -116,9 +86,11 @@ public static class myClass
                 return "Will be at your house soon";
             case ContactMessages.DominosMessage:
                 return "What toppings would you like on your pizza?";
+            default:
+                return null;
         }
     }
-    public static string CorrectResponsesValue(this CorrectResponses cR)
+    public static string CorrectResponsesValue(CorrectResponses cR)
     {
         switch(cR)
         {
@@ -142,9 +114,11 @@ public static class myClass
                 return "I'll be right outside";
             case CorrectResponses.CorrectResponseToDominos:
                 return "Bananas and cheese";
+            default:
+                return null;
         }
     }
-    public static string IncorrectResponsesValue(this IncorrectResponses iR)
+    public static string IncorrectResponsesValue(IncorrectResponses iR)
     {
         switch(iR)
         {
@@ -168,6 +142,8 @@ public static class myClass
                 return "Who is this?";
             case IncorrectResponses.IncorrectResponseToDominos:
                 return "Pineapples";
+            default:
+                return null;
         }
     }
 }
