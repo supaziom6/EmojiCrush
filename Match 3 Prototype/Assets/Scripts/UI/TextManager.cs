@@ -61,6 +61,12 @@ public class TextManager : MonoBehaviour {
         RegisterUpdate();
     }
 
+    public void UndoMove()
+    {
+        Moves += 1;
+        RegisterUpdate();
+    }
+
     public void UpdateScore(int score)
     {
         Score += score;

@@ -186,6 +186,33 @@ public class SpawnIcons : MonoBehaviour {
 		StartCoroutine(ScanBoard(m));
 	}
 
+    public void undoSwap()
+    {
+
+        
+        UIController.UndoMove();
+        //swaps them in the array too for board searching purpose
+        int x = (int)SwappedPosition1.x;
+        int y = (int)SwappedPosition1.y;
+        int x1 = (int)SwappedPosition2.x;
+        int y1 = (int)SwappedPosition2.y;
+
+        board[x, y].GetComponent<Animator>().SetTrigger("InvalidMove");
+        board[x1, y1].GetComponent<Animator>().SetTrigger("InvalidMove");
+
+        GameObject temporary = board[x, y];
+        board[x, y] = board[x1, y1];
+        board[x1, y1] = temporary;
+
+        board[x, y].GetComponent<TileController>().location = new Vector2(x, y);
+
+        board[x1, y1].GetComponent<TileController>().location = new Vector2(x1, y1);
+
+        DoneCheckingBoard = true;
+        moveTilesIntoPos();
+        CanPress = true;
+    }
+
 	/// <summary>
 	///	The power up that changes random emoji to the one that's required by the goal
 	/// </summary>
@@ -613,6 +640,7 @@ public class SpawnIcons : MonoBehaviour {
 
 	IEnumerator ScanBoard(List<Match> predefineddestroylocations = null)
 	{
+        bool noMatches = true;
 		do{
 			yield return new WaitUntil(TilesStopedMoving);
 			if(predefineddestroylocations == null){
@@ -647,6 +675,7 @@ public class SpawnIcons : MonoBehaviour {
 
 
 			if(deleteLocations.Count > 0){
+                noMatches = false;
 				DeleteTiles(deleteLocations);
 				DoneCheckingBoard = false;
 			}
@@ -654,8 +683,15 @@ public class SpawnIcons : MonoBehaviour {
 				break;
 			}
 		}while(true);
-		DoneCheckingBoard = true;
-		StartCoroutine(HandelCheckForPossibleMoves());
+        if (noMatches)
+        {
+            undoSwap();
+        }
+        else
+        {
+            DoneCheckingBoard = true;
+            StartCoroutine(HandelCheckForPossibleMoves());
+        }
 	}
 
 	// xloop determines which coord is dynamic
