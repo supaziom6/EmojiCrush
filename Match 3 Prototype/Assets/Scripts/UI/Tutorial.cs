@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour {
 
-    public GameObject MatchingContinue, UIContinue, Match4Continue, Match5Continue, PowerUpsContinue;
+    public GameObject MatchingContinue, UIContinue, Match4Continue, Match5Continue, PowerUpsContinue,Title;
     public GameObject tutorial_1, tutorial_2, tutorial_3, tutorial_4, tutorial_5, PlayButton,TutorialButton,ShopButton;
 
 
@@ -13,6 +13,7 @@ public class Tutorial : MonoBehaviour {
         PlayButton.SetActive(false);
         TutorialButton.SetActive(false);
         ShopButton.SetActive(false);
+        Title.SetActive(false);
         tut_1();
     }
 
@@ -62,5 +63,6 @@ public class Tutorial : MonoBehaviour {
         PlayButton.SetActive(true);
         TutorialButton.SetActive(true);
         ShopButton.SetActive(true);
+        Title.SetActive(true);
     }
 }
