@@ -48,15 +48,15 @@ public class LevelInfo : ScriptableObject
     [System.Serializable]
     public struct Conversation
     {
-        public TextMesh contactName;
-        public TextMesh contactMessage;
-        public TextMesh playerResponse;
-        public Image contactImage;
-        public Image playerImage;
-        public Image PlayerResponseEmoji;
+        public ContactNames cN;
+        public Sprite contactImage;
+        public Sprite playerImage;
+        public Sprite phoneTop;
+        public Sprite phoneButtom;
+        //public Sprite PlayerResponseEmoji;
     }
 
-	[Header("Story Items")]
-	public Conversation convo;
+    [Header("Story Items")]
+    public Conversation convo;
 
 }

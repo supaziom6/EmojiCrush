@@ -4,143 +4,95 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// [System.Serializable]
-// public struct ContactDetails
-// {
-//     //public TextMesh contactName;
-//     //public TextMesh contactMessage;
-//     //public TextMesh playerResponse;
-//     //public Image contactImage;
-//     //public Image playerImage;
-//     //public Image PlayerResponseEmoji;
-// }
-
 [System.Serializable]
 public enum ContactNames
 {
-    Mom,Brother,Doctor,Boss,Colleague,Cousin,Friend,GrandMa,Uber,Dominos
-}
-
-[System.Serializable]
-public enum ContactMessages
-{
-    MomMessage,BrotherMessage,DoctorMessage,BossMessage,ColleagueMessage,CousinMessage,FriendMessage,GrandmaMessage,UberMessage,DominosMessage
-}
-
-[System.Serializable]
-public enum CorrectResponses
-{
-    CorrectResponseToMom,CorrectResponseToBrother,CorrectResponseToDoctor,CorrectResponseToBoss,CorrectResponseToColleague,
-    CorrectResponseToCousin,CorrectResponseToFriend,CorrectResponseToGrandma,CorrectResponseToUber,CorrectResponseToDominos
-}
-[System.Serializable]
-public enum IncorrectResponses
-{
-    IncorrectResponseToMom,IncorrectResponseToBrother,IncorrectResponseToDoctor,IncorrectResponseToBoss,IncorrectResponseToColleague,
-    IncorrectResponseToCousin,IncorrectResponseToFriend,IncorrectResponseToGrandma,IncorrectResponseToUber,IncorrectResponseToDominos
+    Mom, Brother, Doctor, Boss, Colleague, Cousin, Friend, Grandma, Uber, Dominos
 }
 
 [CreateAssetMenu(fileName = "ContactManager", menuName = "LevelEditor", order = 0)]
 [System.Serializable]
-public class ContactManager : ScriptableObject
+public class ContactManager
 {
-
-    //Contacts mycontact;
-    /// <summary>
-    ///	Used to create contact information for each level
-    /// </summary>
-    [Header("Contact Info")]
-    public Image contactImage;
-    public TextMesh contactName;
-    public TextMesh contactMessage;
-
-[Header("Player Info")]
-    public Image playerImage;
-    public TextMesh playerResponse;
-    public TextMesh ResponseEmoji;
-}
-
-public static class myClass
-{
-    public static string ContactMessagesValue(ContactMessages cM)
+    public static string ContactMessagesValue(ContactNames cN)
     {
-        switch (cM)
+        switch (cN)
         {
-            case ContactMessages.MomMessage:
+            case ContactNames.Mom:
                 return "Pick up the phone!";
-            case ContactMessages.BrotherMessage:
+            case ContactNames.Brother:
                 return "Wanna get some food?";
-            case ContactMessages.DoctorMessage:
+            case ContactNames.Doctor:
                 return "Hello! Just letting you know your annual checkup is coming up soon";
-            case ContactMessages.BossMessage:
+            case ContactNames.Boss:
                 return "Please meet me tomorrow in my office";
-            case ContactMessages.ColleagueMessage:
+            case ContactNames.Colleague:
                 return "Can you cover my shift tomorrow?";
-            case ContactMessages.CousinMessage:
+            case ContactNames.Cousin:
                 return "We should hang out sometime, message me if you are available";
-            case ContactMessages.FriendMessage:
+            case ContactNames.Friend:
                 return "Wanna get pizza and watch a movie tonight?";
-            case ContactMessages.GrandmaMessage:
+            case ContactNames.Grandma:
                 return "YOU KNOW I AM STILL ALIVE DEAR YOU SHOULD VISIT SOMETIMES";
-            case ContactMessages.UberMessage:
+            case ContactNames.Uber:
                 return "Will be at your house soon";
-            case ContactMessages.DominosMessage:
+            case ContactNames.Dominos:
                 return "What toppings would you like on your pizza?";
             default:
                 return null;
         }
     }
-    public static string CorrectResponsesValue(CorrectResponses cR)
+    public static string CorrectResponsesValue(ContactNames cN)
     {
-        switch(cR)
+        switch (cN)
         {
-            case CorrectResponses.CorrectResponseToMom:
+            case ContactNames.Mom:
                 return "I will call you back soon";
-            case CorrectResponses.CorrectResponseToBrother:
+            case ContactNames.Brother:
                 return "Sure, let me know where you want to eat";
-            case CorrectResponses.CorrectResponseToDoctor:
+            case ContactNames.Doctor:
                 return "Thanks for the reminder";
-            case CorrectResponses.CorrectResponseToBoss:
+            case ContactNames.Boss:
                 return "I will be in your office first thing in the morning";
-            case CorrectResponses.CorrectResponseToColleague:
+            case ContactNames.Colleague:
                 return "I sure can";
-            case CorrectResponses.CorrectResponseToCousin:
+            case ContactNames.Cousin:
                 return "We could hang out friday";
-            case CorrectResponses.CorrectResponseToFriend:
+            case ContactNames.Friend:
                 return "I'll meet you at your place tonight";
-            case CorrectResponses.CorrectResponseToGrandma:
+            case ContactNames.Grandma:
                 return "I know grandma, but I have been super busy, much love";
-            case CorrectResponses.CorrectResponseToUber:
+            case ContactNames.Uber:
                 return "I'll be right outside";
-            case CorrectResponses.CorrectResponseToDominos:
+            case ContactNames.Dominos:
                 return "Bananas and cheese";
             default:
                 return null;
         }
     }
-    public static string IncorrectResponsesValue(IncorrectResponses iR)
+    public static string IncorrectResponsesValue(ContactNames cN)
     {
-        switch(iR)
+        switch (cN)
         {
-            case IncorrectResponses.IncorrectResponseToMom:
+            case ContactNames.Mom:
                 return "I'm busy mom";
-            case IncorrectResponses.IncorrectResponseToBrother:
+            case ContactNames.Brother:
                 return "I can't, also Mr Whiskers died, sorry to tell you this now";
-            case IncorrectResponses.IncorrectResponseToDoctor:
+            case ContactNames.Doctor:
                 return "I don't recognise this number";
-            case IncorrectResponses.IncorrectResponseToBoss:
+            case ContactNames.Boss:
                 return "I'm not going to work anymore";
-            case IncorrectResponses.IncorrectResponseToColleague:
+            case ContactNames.Colleague:
                 return "No Brian, you keep on talking about Bitcoin and it honestly upsets me";
-            case IncorrectResponses.IncorrectResponseToCousin:
+            case ContactNames.Cousin:
                 return "I'm busy this week";
-            case IncorrectResponses.IncorrectResponseToFriend:
+            case ContactNames.Friend:
                 return "Already made plans tonight";
-            case IncorrectResponses.IncorrectResponseToGrandma:
+            case ContactNames.Grandma:
                 return "I will come sometime next week to visit";
-            case IncorrectResponses.IncorrectResponseToUber:
+            case ContactNames.Uber:
                 return "Who is this?";
-            case IncorrectResponses.IncorrectResponseToDominos:
+            case ContactNames.Dominos:
                 return "Pineapples";
             default:
                 return null;

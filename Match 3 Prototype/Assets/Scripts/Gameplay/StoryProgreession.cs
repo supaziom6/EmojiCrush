@@ -20,16 +20,18 @@ public class StoryProgreession : MonoBehaviour {
 	/// Temporary Screen for the end of the game
 	/// </summary>
 	public GameObject EndGameScreen;
-	public Button nextLevel;
+    public GameObject StoryDisplayer;
+    public Button nextLevel;
 	public TextMeshProUGUI Score;
 	public TextMeshProUGUI EndGameTitle;
 	private bool EndGameHandeled;
 	// Use this for initialization
 	void Start () {
-		// Take stuff from the story here and initialize it
+        // Take stuff from the story here and initialize it
 
-		startGame();
-	}
+        GameObject temp = Instantiate(StoryDisplayer);
+        temp.GetComponent<StoryDisplay>().Initializer = Initializer;
+    }
 
 	/// <summary>
 	///  when everything is done call game start to begin the game phase
