@@ -33,7 +33,7 @@ public class MainMenuHandler : MonoBehaviour
         {
             
             GameObject temp = Instantiate(LevelButtonPrefab);
-            temp.GetComponent<RectTransform>().sizeDelta =new Vector2((Screen.width*0.8f) ,(Screen.height*0.1f));
+            temp.GetComponent<RectTransform>().sizeDelta =new Vector2((Screen.width*0.7f) ,(Screen.height*0.1f));
             temp.transform.SetParent(LevelButtonParent.transform);
             if(highestLevelcomplete+1 < LevelInfos[i].LevelNumber)
             {

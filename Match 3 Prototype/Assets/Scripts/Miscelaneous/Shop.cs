@@ -42,7 +42,7 @@ public class Shop : MonoBehaviour {
 
 	private void checkPrices()
 	{
-		coinsDisplay.text = "Gold: " + SavingManager.PersistantData.Coins;
+		coinsDisplay.text = SavingManager.PersistantData.Coins.ToString();
 		AutoCorrect.interactable = false;
 		EmojiCrush.interactable = false;
 
