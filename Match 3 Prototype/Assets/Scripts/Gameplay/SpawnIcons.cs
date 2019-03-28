@@ -644,7 +644,7 @@ public class SpawnIcons : MonoBehaviour {
         bool noMatches = true;
 		do{
 			yield return new WaitUntil(TilesStopedMoving);
-			if(predefineddestroylocations == null){
+            if (predefineddestroylocations == null){
 				deleteLocations = new List<Match>();
 			}
 			else{
@@ -931,7 +931,7 @@ public class SpawnIcons : MonoBehaviour {
 
 	void spawnSpecialTile(GameObject specialTile, Vector2 loc)
 	{
-		GameObject temp = Instantiate(specialTile, new Vector3((loc.x*tileSize) - BorderLimit.x, ((loc.y)*tileSize)- BorderLimit.y, 0), Quaternion.identity);
+		GameObject temp = Instantiate(specialTile, new Vector3((loc.x*tileSize) - BorderLimit.x, ((loc.y)*tileSize)- BorderLimit.y, 0), specialTile.transform.rotation);
 		// This gives the tile the reference method as to who it should call whe it has been pressed
 		temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
 		temp.AddComponent<TileController>();
