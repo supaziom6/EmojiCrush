@@ -179,11 +179,12 @@ public class SpawnIcons : MonoBehaviour {
 					m = VerticalDestroy(a);
 				}
 			}
-		}
+            DoneCheckingBoard = false;
+            moveTilesIntoPos();
+            StartCoroutine(ScanBoard(m));
+        }
 		
-		DoneCheckingBoard = false;
-		moveTilesIntoPos();
-		StartCoroutine(ScanBoard(m));
+		
 	}
 
     public void undoSwap()
