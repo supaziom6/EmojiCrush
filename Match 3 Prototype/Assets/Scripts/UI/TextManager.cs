@@ -17,6 +17,7 @@ public class TextManager : MonoBehaviour {
     public static bool LevelEnded;
     public LevelInfo currentLevel;
     public GameObject lowMovesWarning;
+    public GameObject scoreFlash;
 
     private void Awake()
     {
@@ -74,6 +75,7 @@ public class TextManager : MonoBehaviour {
     public void UpdateScore(int score)
     {
         Score += score;
+        scoreFlash.GetComponent<Animator>().SetTrigger("Flash");
         RegisterUpdate();
     }
 
