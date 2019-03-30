@@ -4,14 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
 public enum ContactNames
 {
     Mom, Brother, Doctor, Boss, Colleague, Cousin, Friend, Grandma, Uber, Dominos
 }
-
-[CreateAssetMenu(fileName = "ContactManager", menuName = "LevelEditor", order = 0)]
-[System.Serializable]
 public class ContactManager
 {
     public static string ContactMessagesValue(ContactNames cN)

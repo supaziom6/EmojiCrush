@@ -20,6 +20,7 @@ public class StoryProgreession : MonoBehaviour {
 	/// Temporary Screen for the end of the game
 	/// </summary>
 	public GameObject EndGameScreen;
+	public RectTransform MasterUI;
     public GameObject StoryDisplayer;
     public Button nextLevel;
 	public TextMeshProUGUI Score;
@@ -31,6 +32,7 @@ public class StoryProgreession : MonoBehaviour {
 
         GameObject temp = Instantiate(StoryDisplayer);
         temp.GetComponent<StoryDisplay>().Initializer = Initializer;
+		temp.GetComponent<TransitionScreen>().MasterUI = MasterUI;
     }
 
 	/// <summary>

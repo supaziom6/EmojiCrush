@@ -26,11 +26,7 @@ public class StoryDisplay : MonoBehaviour
         correctResponse.text = ContactManager.CorrectResponsesValue(i.convo.cN);
         inCorrectResponse.text = ContactManager.IncorrectResponsesValue(i.convo.cN);
     }
-    public void UpdateUI(LevelInfo lI)
-    {
-        phoneTop.sprite = lI.convo.phoneTop;
-        phoneButtom.sprite = lI.convo.phoneButtom;
-    }
+
 
     public void Continue()
     {

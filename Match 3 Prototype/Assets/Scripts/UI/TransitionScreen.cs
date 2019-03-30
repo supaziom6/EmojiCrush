@@ -11,9 +11,8 @@ public class TransitionScreen : MonoBehaviour {
     public Text contactNameText;
     public Text contactMessageText;
     public Button continueButton;
-
-    public RectTransform PhoneTop;
-    public RectTransform PhoneButtom;
+    public RectTransform MasterUI;
+    
 
     //Flags
     private bool hasCubeRotated = false;
@@ -31,38 +30,10 @@ public class TransitionScreen : MonoBehaviour {
         hasCubeRotated = false;
     }
 	
-	// Update is called once per frame
-	void Update () {
-
-        if(hasTransitionEnded)
-        {
-            Rotate();
-        }
-        //if the game was finished by winning
-        else if(hasGameFinished && gameWon)
-        {
-            Rotate();
-        }
-        else if(hasGameFinished && gameLost)
-        {
-            //Called twice to rotate the cube twice
-            //Might cause unforseen bugs
-            for(int i = 0; i < 2; i++)
-            {
-                Rotate();
-            }
-        }
-
-    }
     public void Rotate()
     {
-        float endYRotation = 90f;
-        float rotateSpeed = 5f;
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, endYRotation, 0), Time.deltaTime * rotateSpeed);
-
         //Wait 3 seconds
-        StartCoroutine("Wait");
+        StartCoroutine(RotateTo(transform, Quaternion.Euler(0, 90, 0), 1));
         hasCubeRotated = true;
         continueButton.enabled = false;
     }
@@ -98,26 +69,57 @@ public class TransitionScreen : MonoBehaviour {
         //if this method is called, it should should always reset the cube to the story bit
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, endYRotation, 0), Time.deltaTime * rotateSpeed);
     }
-    IEnumerator Wait()
+    IEnumerator RotateTo(Transform rotator, Quaternion endrotation, float TimeToRotate)
     {
-        yield return new WaitForSeconds(3);
-    }
-    public void EnablePhoneUI()
-    {
-        PhoneTop.anchorMax =  new Vector2(1f, 0.12f);
-
-
-        PhoneButtom.anchorMax = new Vector2(0f, 0.12f);
-
+        Quaternion baseRotation = rotator.rotation;
+        for(float i = 0; i < TimeToRotate ; i += Time.deltaTime)
+        {
+            print("Now I'mHere");
+            rotator.rotation = Quaternion.Lerp(baseRotation, endrotation, i/TimeToRotate);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        rotator.rotation = endrotation;
+        print("finished rotating");
+        EnableGameUI();
+        sD.Continue();
+        
     }
     //enable the game UI once the player has transitioned to the game bit
     public void EnableGameUI()
     {
+        // Set MasterUI Y anchors to min 0 max 1 
         //Code here to enable the game's UI (Score, goal emoji etc)
+        MasterUI.anchorMax = new Vector2(1,1);
+        MasterUI.anchorMin = new Vector2(0,0);
+        MasterUI.sizeDelta = new Vector2(1000,1000);
+        print("UI is about to move");
+        StartCoroutine(MoveUIIntoPosition());
+        
+
     }
     public void DisableGameUI()
     {
+        //Set MAasterUI Y ancors to 2
+        MasterUI.anchorMax = new Vector2(1,2);
+        MasterUI.anchorMin = new Vector2(0,2);
+        MasterUI.sizeDelta = new Vector2(500,500);
+        StartCoroutine(MoveUIIntoPosition());
         //Code here to disable the game's UI (Score, goal emoji etc)
+    }
+
+
+    IEnumerator MoveUIIntoPosition()
+    {
+        float TimetoMove = 2;
+        Vector2 BaseSize = MasterUI.sizeDelta;
+        for(float i = 0; i < TimetoMove ; i += Time.deltaTime)
+        {
+            print("Now I'mHere");
+            MasterUI.sizeDelta = Vector2.Lerp(BaseSize, Vector2.zero, i/TimetoMove);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        MasterUI.sizeDelta = Vector2.zero;
+
     }
     //Disable text's until they are needed
     //public void DisableText()
