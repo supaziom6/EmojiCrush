@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 
 public class TextManager : MonoBehaviour {
 
-    public TextMeshProUGUI ScoreText;
+    public Text ScoreText;
     public int Score;
-    public TextMeshProUGUI MovesLeft;
+    public Text MovesLeft;
     private int Moves;
-    public TextMeshProUGUI EmojisText;
+    public Text EmojisText;
     public Image GoalImage;
     private int Emojis;
     public static bool WonTheGame;

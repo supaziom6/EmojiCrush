@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
@@ -19,9 +18,9 @@ public class GameUI : MonoBehaviour
     public GameObject Shop;
     public GameObject Shop_Button;
     public GameObject Power_Up1;
-    public TextMeshProUGUI powerUp1Ammount;
+    public Text powerUp1Ammount;
     public GameObject Power_Up2;
-    public TextMeshProUGUI powerUp2Ammount;
+    public Text powerUp2Ammount;
     public GameObject EmojiCrushExplanation;
 
     public void Awake()
