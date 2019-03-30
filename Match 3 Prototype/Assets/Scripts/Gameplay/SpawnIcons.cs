@@ -136,6 +136,7 @@ public class SpawnIcons : MonoBehaviour {
 		if(TilesAdjacent(a,b) && !(a.GetComponent<EmojiType>().TC == TileColor.NA && b.GetComponent<EmojiType>().TC == TileColor.NA)){
 			CanPress = false;
 			UIController.UseMove();
+            // swap sound
 			//swaps them in the array too for board searching purpose
 			int x = (int)a.GetComponent<TileController>().location.x;
 			int y = (int)a.GetComponent<TileController>().location.y;
@@ -266,6 +267,7 @@ public class SpawnIcons : MonoBehaviour {
 		Match bombtemp = new Match();
 		bombtemp.objectJoinedTogether.Add(bomb.GetComponent<TileController>().location);
 		m.Add(bombtemp);
+        // explosion sound
 		foreach(GameObject t in board)
 		{
 			if(t != null)
@@ -334,6 +336,7 @@ public class SpawnIcons : MonoBehaviour {
 			Match emopjitemp = new Match();
 			emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
 			m.Add(emopjitemp);
+            // Rocket sound
 			for(int i = 0; i < board.GetLength(0); i++)
 			{
 				if(board[i,yPos] != null)
@@ -362,6 +365,7 @@ public class SpawnIcons : MonoBehaviour {
 			Match emopjitemp = new Match();
 			emopjitemp.objectJoinedTogether.Add(emoji.GetComponent<TileController>().location);
 			m.Add(emopjitemp);
+            // rocket sound
 			for(int i = 0; i < board.GetLength(1); i++)
 			{
 				if(board[xPos,i] != null)
