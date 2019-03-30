@@ -23,8 +23,8 @@ public class StoryProgreession : MonoBehaviour {
 	public RectTransform MasterUI;
     public GameObject StoryDisplayer;
     public Button nextLevel;
-	public TextMeshProUGUI Score;
-	public TextMeshProUGUI EndGameTitle;
+	public Text Score;
+	public Text EndGameTitle;
 	private bool EndGameHandeled;
 	// Use this for initialization
 	void Start () {

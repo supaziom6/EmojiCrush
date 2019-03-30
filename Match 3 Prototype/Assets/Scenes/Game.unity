@@ -2402,8 +2402,8 @@ MonoBehaviour:
   StoryDisplayer: {fileID: 1814839289296228, guid: e46401b93cf845f4883c39c1c2f02420,
     type: 2}
   nextLevel: {fileID: 2027062080}
-  Score: {fileID: 0}
-  EndGameTitle: {fileID: 0}
+  Score: {fileID: 134986892}
+  EndGameTitle: {fileID: 1549500435}
 --- !u!114 &1147504220
 MonoBehaviour:
   m_ObjectHideFlags: 0
