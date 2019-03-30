@@ -16,6 +16,7 @@ public class TextManager : MonoBehaviour {
     public static bool WonTheGame;
     public static bool LevelEnded;
     public LevelInfo currentLevel;
+    public GameObject lowMovesWarning;
 
     private void Awake()
     {
@@ -57,6 +58,10 @@ public class TextManager : MonoBehaviour {
     public void UseMove()
     {
         Moves -= 1;
+        if(Moves <= 10)
+        {
+            lowMovesWarning.GetComponent<Animator>().SetTrigger("Warning");
+        } 
         RegisterUpdate();
     }
 
