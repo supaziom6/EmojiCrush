@@ -22,12 +22,16 @@ public class TransitionScreen : MonoBehaviour {
     private bool gameLost = false;
 
 
+
 	// Use this for initialization
 	void Start () {
         sD = GetComponent<StoryDisplay>();
         //Disable button on startup
         continueButton.enabled = true;
         hasCubeRotated = false;
+        MasterUI.anchorMax = new Vector2(1,2);
+        MasterUI.anchorMin = new Vector2(0,2);
+        MasterUI.sizeDelta = new Vector2(500,500);
     }
 	
     public void Rotate()
@@ -81,7 +85,7 @@ public class TransitionScreen : MonoBehaviour {
         rotator.rotation = endrotation;
         print("finished rotating");
         EnableGameUI();
-        sD.Continue();
+        
         
     }
     //enable the game UI once the player has transitioned to the game bit
@@ -91,7 +95,7 @@ public class TransitionScreen : MonoBehaviour {
         //Code here to enable the game's UI (Score, goal emoji etc)
         MasterUI.anchorMax = new Vector2(1,1);
         MasterUI.anchorMin = new Vector2(0,0);
-        MasterUI.sizeDelta = new Vector2(1000,1000);
+        MasterUI.sizeDelta = new Vector2(500,500);
         print("UI is about to move");
         StartCoroutine(MoveUIIntoPosition());
         
@@ -110,7 +114,7 @@ public class TransitionScreen : MonoBehaviour {
 
     IEnumerator MoveUIIntoPosition()
     {
-        float TimetoMove = 2;
+        float TimetoMove = 0.2f;
         Vector2 BaseSize = MasterUI.sizeDelta;
         for(float i = 0; i < TimetoMove ; i += Time.deltaTime)
         {
@@ -119,7 +123,7 @@ public class TransitionScreen : MonoBehaviour {
             yield return new WaitForSeconds(Time.deltaTime);
         }
         MasterUI.sizeDelta = Vector2.zero;
-
+        sD.Continue();
     }
     //Disable text's until they are needed
     //public void DisableText()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoryDisplay : MonoBehaviour
 {
@@ -10,12 +11,11 @@ public class StoryDisplay : MonoBehaviour
     public SpriteRenderer ContactImage;
     public SpriteRenderer PlayerImage;
     //public GameObject emoji;
-    public TextMesh contactMessage;
+    public Text contactMessage;
     //public TextMesh playerResponse;
-    public TextMesh correctResponse;
-    public TextMesh inCorrectResponse;
-    public SpriteRenderer phoneTop;
-    public SpriteRenderer phoneButtom;
+    public Text correctResponse;
+    public Text inCorrectResponse;
+
 
     public void UpdateConversationInformation(LevelInfo i)
     {
