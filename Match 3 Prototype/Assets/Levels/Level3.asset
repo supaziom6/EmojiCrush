@@ -34,12 +34,9 @@ MonoBehaviour:
   movesAvailable: 40
   nextLevel: {fileID: 11400000, guid: abdb1b359942f2f4c829224940d4698f, type: 2}
   ContactImage: {fileID: 0}
-  ContactName: Man
+  ContactName: Doctor
   LevelNumber: 3
   convo:
-    contactName: {fileID: 0}
-    contactMessage: {fileID: 0}
-    playerResponse: {fileID: 0}
+    cN: 2
     contactImage: {fileID: 0}
     playerImage: {fileID: 0}
-    PlayerResponseEmoji: {fileID: 0}

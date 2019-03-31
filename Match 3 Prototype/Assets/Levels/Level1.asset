@@ -33,13 +33,10 @@ MonoBehaviour:
   RequiredEmojiAmmount: 25
   movesAvailable: 45
   nextLevel: {fileID: 11400000, guid: bcbc94ed190f809498f8100a480bbf5b, type: 2}
-  ContactImage: {fileID: 0}
+  ContactImage: {fileID: 21300000, guid: cae3170fc7f6e2540925cab4cc84506c, type: 3}
   ContactName: Mom
   LevelNumber: 1
   convo:
-    contactName: {fileID: 0}
-    contactMessage: {fileID: 0}
-    playerResponse: {fileID: 0}
-    contactImage: {fileID: 0}
-    playerImage: {fileID: 0}
-    PlayerResponseEmoji: {fileID: 0}
+    cN: 0
+    contactImage: {fileID: 21300000, guid: cae3170fc7f6e2540925cab4cc84506c, type: 3}
+    playerImage: {fileID: 21300000, guid: b5ea96c537e56204587df1300d44de10, type: 3}

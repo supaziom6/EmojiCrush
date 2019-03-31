@@ -30,19 +30,16 @@ MonoBehaviour:
   - emojiType: {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33,
       type: 2}
     spawnChance: 0
-  xSize: 10
+  xSize: 8
   ySize: 8
   goalEmoji: {fileID: 1411854017863844, guid: 944bfe44c9545714bb2170d1d71f4f33, type: 2}
   RequiredEmojiAmmount: 35
-  movesAvailable: 45
+  movesAvailable: 40
   nextLevel: {fileID: 0}
   ContactImage: {fileID: 0}
-  ContactName: Woman
+  ContactName: Boss
   LevelNumber: 4
   convo:
-    contactName: {fileID: 0}
-    contactMessage: {fileID: 0}
-    playerResponse: {fileID: 0}
+    cN: 3
     contactImage: {fileID: 0}
     playerImage: {fileID: 0}
-    PlayerResponseEmoji: {fileID: 0}
