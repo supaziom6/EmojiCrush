@@ -7862,6 +7862,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickPrefab: {fileID: 1488040685544356, guid: eefbbf1b62454e642870af1a14b24f8e,
     type: 2}
+  potentialClolors:
+  - {r: 1, g: 0, b: 0, a: 0.78431374}
+  - {r: 0, g: 0.8106227, b: 1, a: 0.78431374}
+  - {r: 0.06549895, g: 1, b: 0, a: 0.78431374}
+  - {r: 1, g: 0.48650524, b: 0, a: 0.78431374}
+  - {r: 0.7636528, g: 0, b: 1, a: 0.78431374}
+  - {r: 1, g: 0.9957261, b: 0, a: 0.78431374}
 --- !u!4 &1842337075
 Transform:
   m_ObjectHideFlags: 0
