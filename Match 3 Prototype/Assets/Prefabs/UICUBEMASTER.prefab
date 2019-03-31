@@ -653,8 +653,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Initializer: {fileID: 0}
-  ContactImage: {fileID: 0}
-  PlayerImage: {fileID: 0}
+  ContactImage: {fileID: 114823566027653162}
+  PlayerImage: {fileID: 114656351835067666}
   contactMessage: {fileID: 114495166103309172}
   correctResponse: {fileID: 114687852188181856}
   inCorrectResponse: {fileID: 114687852188181856}

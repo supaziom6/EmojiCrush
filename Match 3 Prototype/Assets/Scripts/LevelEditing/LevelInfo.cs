@@ -51,9 +51,6 @@ public class LevelInfo : ScriptableObject
         public ContactNames cN;
         public Sprite contactImage;
         public Sprite playerImage;
-        public Sprite phoneTop;
-        public Sprite phoneButtom;
-        //public Sprite PlayerResponseEmoji;
     }
 
     [Header("Story Items")]

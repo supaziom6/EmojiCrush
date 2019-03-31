@@ -8,14 +8,18 @@ public class StoryDisplay : MonoBehaviour
 
     [HideInInspector]
     public SpawnIcons Initializer;
-    public SpriteRenderer ContactImage;
-    public SpriteRenderer PlayerImage;
+    public Image ContactImage;
+    public Image PlayerImage;
     //public GameObject emoji;
     public Text contactMessage;
     //public TextMesh playerResponse;
     public Text correctResponse;
     public Text inCorrectResponse;
 
+    void Start()
+    {
+        UpdateConversationInformation(LoadLoadingInfo.currentLevel);
+    }
 
     public void UpdateConversationInformation(LevelInfo i)
     {
