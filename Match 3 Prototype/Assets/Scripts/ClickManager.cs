@@ -6,12 +6,19 @@ public class ClickManager : MonoBehaviour {
 
 	private static ClickManager Instance;
 	public GameObject clickPrefab;
+
+	public Color[] potentialClolors;
 	void Awake()
 	{
 		if(Instance == null)
 		{
 			DontDestroyOnLoad(this);
 			Instance = this;
+			if(potentialClolors == null)
+			{
+				potentialClolors = new Color[1];
+				potentialClolors[0] = clickPrefab.GetComponent<SpriteRenderer>().color;
+			}
 		}
 		else
 		{
@@ -24,7 +31,8 @@ public class ClickManager : MonoBehaviour {
 		{		
 			Vector3 spawnLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			spawnLocation.z = -5;
-			Instantiate(clickPrefab, spawnLocation, Quaternion.identity);
+			GameObject temp = Instantiate(clickPrefab, spawnLocation, Quaternion.identity);
+			temp.GetComponent<SpriteRenderer>().color = potentialClolors[Random.Range(0,potentialClolors.Length)];
 		}
 	}
 }
