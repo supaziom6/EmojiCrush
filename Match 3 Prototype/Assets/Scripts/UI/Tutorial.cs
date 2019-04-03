@@ -10,10 +10,13 @@ public class Tutorial : MonoBehaviour {
 
     public void TutorialStart()
     {
-        PlayButton.SetActive(false);
+        if(PlayButton != null)
+            PlayButton.SetActive(false);
         TutorialButton.SetActive(false);
-        ShopButton.SetActive(false);
-        Title.SetActive(false);
+        if (ShopButton != null)
+            ShopButton.SetActive(false);
+        if (Title != null)
+            Title.SetActive(false);
         tut_1();
     }
 
@@ -60,9 +63,12 @@ public class Tutorial : MonoBehaviour {
     {
         tutorial_5.SetActive(false);
         PowerUpsContinue.SetActive(false);
-        PlayButton.SetActive(true);
+        if(PlayButton != null)
+            PlayButton.SetActive(true);
         TutorialButton.SetActive(true);
-        ShopButton.SetActive(true);
-        Title.SetActive(true);
+        if (ShopButton != null)
+            ShopButton.SetActive(true);
+        if (Title != null)
+            Title.SetActive(true);
     }
 }
