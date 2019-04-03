@@ -14,12 +14,12 @@ public class TransitionScreen : MonoBehaviour {
     public RectTransform MasterUI;
     
 
-    //Flags
+    ////Flags
     private bool hasCubeRotated = false;
     private bool hasTransitionEnded = false;
-    private bool hasGameFinished = false;
-    private bool gameWon = false;
-    private bool gameLost = false;
+    //private bool hasGameFinished = false;
+    //private bool gameWon = false;
+    //private bool gameLost = false;
 
 
 
