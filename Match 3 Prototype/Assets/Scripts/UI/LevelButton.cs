@@ -17,11 +17,11 @@ public class LevelButton : MonoBehaviour {
 		Title.text = info.ContactName;
 		if(SavingManager.PersistantData.HighScores != null && SavingManager.PersistantData.HighScores.Count >= info.LevelNumber)
 		{
-			HighScore.text = "HighScore: "+SavingManager.PersistantData.HighScores[info.LevelNumber-1];
+			HighScore.text = "Best Score: "+SavingManager.PersistantData.HighScores[info.LevelNumber-1];
 		}
 		else
 		{
-			HighScore.text = "HighScore: 0";
+			HighScore.text = "Best Score: 0";
 		}
 		contactImage.sprite = info.ContactImage;
 
