@@ -13,6 +13,8 @@ public class MainMenuHandler : MonoBehaviour
     public GameObject LevelButtonPrefab;
     public GameObject ReturnButton;
     public GameObject OptionsButton;
+    public GameObject CreditsButton;
+    public GameObject Credits;
     public GameObject ExitButton;
     public GameObject ShopButton;
     public GameObject TutorialButton;
@@ -20,6 +22,7 @@ public class MainMenuHandler : MonoBehaviour
     public GameObject OptionsMenu;
     // Sprites
     public GameObject BackgroundImage;
+    public GameObject DiamondImage;
     public GameObject OptionsBackground;
 
     public List<LevelInfo> LevelInfos;
@@ -50,7 +53,10 @@ public class MainMenuHandler : MonoBehaviour
     public void LevelsMenu()
     {
         Levels.SetActive(false);
+        Credits.SetActive(false);
+        CreditsButton.SetActive(false);
         ExitButton.SetActive(false);
+        DiamondImage.SetActive(false);
         ShopButton.SetActive(false);
         TutorialButton.SetActive(false);
         LevelButtons.SetActive(true);
@@ -60,6 +66,9 @@ public class MainMenuHandler : MonoBehaviour
     public void Options()
     {
         Levels.SetActive(false);
+        Credits.SetActive(false);
+        CreditsButton.SetActive(false);
+        DiamondImage.SetActive(false);
         OptionsButton.SetActive(false);
         ShopButton.SetActive(false);
         ExitButton.SetActive(false);
@@ -76,6 +85,8 @@ public class MainMenuHandler : MonoBehaviour
     public void Return()
     {
         OptionsBackground.SetActive(false);
+        Credits.SetActive(false);
+        CreditsButton.SetActive(true);
         LevelButtons.SetActive(false);
         ShopButton.SetActive(true);
         TutorialButton.SetActive(true);
@@ -83,9 +94,24 @@ public class MainMenuHandler : MonoBehaviour
         OptionsButton.SetActive(true);
         OptionsMenu.SetActive(false);
         ExitButton.SetActive(true);
+        DiamondImage.SetActive(true);
         ReturnButton.SetActive(false);
     }
-
+    public void ShowCredits()
+    {
+        OptionsBackground.SetActive(false);
+        Credits.SetActive(true);
+        CreditsButton.SetActive(false);
+        LevelButtons.SetActive(false);
+        ShopButton.SetActive(false);
+        TutorialButton.SetActive(false);
+        Levels.SetActive(false);
+        OptionsButton.SetActive(false);
+        OptionsMenu.SetActive(false);
+        ExitButton.SetActive(false);
+        DiamondImage.SetActive(false);
+        ReturnButton.SetActive(true);
+    }
     public void Shop()
     {
         SceneManager.LoadScene("Shop");
