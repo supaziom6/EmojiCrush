@@ -46,6 +46,7 @@ public class SpawnIcons : MonoBehaviour {
 	private List<Match> deleteLocations;
 	private bool foundMoves;
 	private float imageSize;
+	private float SpawnChanceTotal;
 	
 
 	// Use this for initialization
@@ -62,6 +63,7 @@ public class SpawnIcons : MonoBehaviour {
 		foreach(LevelEmojiInfo g in UIController.currentLevel.possibleEmoji)
 		{
 			TilePrefabs.Add(g.emojiType);
+			SpawnChanceTotal += g.spawnChance; 
 		}
 		// Dynamic size based on screen size
 		Vector2 screenSize = new Vector2(Camera.main.orthographicSize * 2 * Camera.main.aspect, Camera.main.orthographicSize * 2); 
@@ -933,13 +935,38 @@ public class SpawnIcons : MonoBehaviour {
 
 	void spawnTiles(int loc, int numberToSpawn){
 		for(int i = 0; i < numberToSpawn; i ++){
-			GameObject temp = Instantiate(TilePrefabs[Random.Range(0,TilePrefabs.Count)], new Vector3((loc*tileSize) - BorderLimit.x, ((BoardSize.y+i)*tileSize)- BorderLimit.y, 0), Quaternion.identity);
+			GameObject prefabTile = SelectRandomTile();
+			GameObject temp = Instantiate(prefabTile, new Vector3((loc*tileSize) - BorderLimit.x, ((BoardSize.y+i)*tileSize)- BorderLimit.y, 0), Quaternion.identity);
 			// This gives the tile the reference method as to who it should call whe it has been pressed
 			temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
 			temp.AddComponent<TileController>();
 			temp.GetComponent<TileController>().IHaveBeenSelected = TileWsaPressed;
 			temp.GetComponent<TileController>().location = new Vector2(loc,BoardSize.y+i);
 			board[loc,(int)BoardSize.y+i] = temp;
+		}
+		
+	}
+
+	GameObject SelectRandomTile(){
+		
+		if(SpawnChanceTotal == 0)
+		{
+			return TilePrefabs[Random.Range(0,TilePrefabs.Count)];
+		}
+		else
+		{
+			float random = SpawnChanceTotal*Random.Range(0f,1f);
+
+			float countDown = SpawnChanceTotal;
+			int counter = 0;
+			do{
+				countDown -= UIController.currentLevel.possibleEmoji[counter].spawnChance;
+				if(countDown <= random)
+				{
+					return TilePrefabs[counter];
+				}
+				counter++;
+			}while(true);
 		}
 		
 	}
