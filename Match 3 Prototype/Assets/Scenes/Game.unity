@@ -458,7 +458,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773796416}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.75, y: 0.02}
   m_AnchorMax: {x: 0.95, y: 0.1}
@@ -1081,8 +1081,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1267898205}
-  m_Father: {fileID: 773796416}
-  m_RootOrder: 7
+  m_Father: {fileID: 1020364086}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1277,7 +1277,6 @@ RectTransform:
   - {fileID: 1280532313}
   - {fileID: 962132532}
   - {fileID: 1724669046}
-  - {fileID: 666187364}
   - {fileID: 177023734}
   m_Father: {fileID: 1020364086}
   m_RootOrder: 0
@@ -2046,6 +2045,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 773796416}
+  - {fileID: 666187364}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2539,11 +2539,11 @@ MonoBehaviour:
   SwapSound: {fileID: 135135687}
   WrongMoveSound: {fileID: 1501443232}
   PowerUpController: {fileID: 1020364087}
-  goalEmoji: {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7, type: 2}
+  goalEmoji: {fileID: 0}
   UIController: {fileID: 1020364088}
   warning: {fileID: 967263286}
   Background: {fileID: 1785135388884980, guid: a89ee1ea066c50343862678567ee5a53, type: 2}
-  BackgroundParrent: {fileID: 1778227233}
+  ParentGameBoard: {fileID: 1778227233}
   Explosion: {fileID: 1084324993270746, guid: 2e04eb983f7e3594ca59f1f6ebf521ec, type: 2}
   TilePrefabs: []
 --- !u!114 &1147504219
@@ -4263,7 +4263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1778227234}
   m_Layer: 0
-  m_Name: BackgroundParrent
+  m_Name: GameBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

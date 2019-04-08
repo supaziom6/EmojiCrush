@@ -26,12 +26,12 @@ public class SpawnIcons : MonoBehaviour {
 	public TextManager UIController;
 	public Animator warning;
 	public GameObject Background;
-	public GameObject BackgroundParrent;
+	public GameObject ParentGameBoard;
 	public GameObject Explosion;
-
+	[HideInInspector]
+	public List<GameObject> TilePrefabs;
 
 	// Private Feilds
-	public List<GameObject> TilePrefabs;
 	private Vector2 BoardSize;
 	public static float tileSize;
 	private GameObject currentlySelected;
@@ -83,7 +83,7 @@ public class SpawnIcons : MonoBehaviour {
 			{
 				GameObject temp = Instantiate(Background, new Vector3((x*tileSize) - BorderLimit.x, (y*tileSize)- BorderLimit.y, 1), Quaternion.identity);
 				temp.transform.localScale = new Vector3(tileSize*1.25f,tileSize*1.25f,1);
-				temp.transform.parent = BackgroundParrent.transform;
+				temp.transform.parent = ParentGameBoard.transform;
 			}
 		}
 
@@ -937,6 +937,7 @@ public class SpawnIcons : MonoBehaviour {
 		for(int i = 0; i < numberToSpawn; i ++){
 			GameObject prefabTile = SelectRandomTile();
 			GameObject temp = Instantiate(prefabTile, new Vector3((loc*tileSize) - BorderLimit.x, ((BoardSize.y+i)*tileSize)- BorderLimit.y, 0), Quaternion.identity);
+			temp.transform.parent = ParentGameBoard.transform;
 			// This gives the tile the reference method as to who it should call whe it has been pressed
 			temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
 			temp.AddComponent<TileController>();
@@ -974,6 +975,7 @@ public class SpawnIcons : MonoBehaviour {
 	void spawnSpecialTile(GameObject specialTile, Vector2 loc)
 	{
 		GameObject temp = Instantiate(specialTile, new Vector3((loc.x*tileSize) - BorderLimit.x, ((loc.y)*tileSize)- BorderLimit.y, 0), specialTile.transform.rotation);
+		temp.transform.parent = ParentGameBoard.transform;
 		// This gives the tile the reference method as to who it should call whe it has been pressed
 		temp.transform.localScale = new Vector3(tileSize*imageSize,tileSize*imageSize,1);
 		temp.AddComponent<TileController>();

@@ -6,17 +6,16 @@ using UnityEngine.UI;
 public class TransitionScreen : MonoBehaviour {
 
     StoryDisplay sD;
-
+    public delegate void callback();
+    public callback displayPostGameScreen;
     public GameObject cube;
-    public Text contactNameText;
-    public Text contactMessageText;
     public Button continueButton;
+    public Button continueEndButton;
     public RectTransform MasterUI;
     
 
-    ////Flags
-    private bool hasCubeRotated = false;
-    private bool hasTransitionEnded = false;
+    // Flags
+    private bool doneHidingUI;
     //private bool hasGameFinished = false;
     //private bool gameWon = false;
     //private bool gameLost = false;
@@ -27,8 +26,6 @@ public class TransitionScreen : MonoBehaviour {
 	void Start () {
         sD = GetComponent<StoryDisplay>();
         //Disable button on startup
-        continueButton.enabled = true;
-        hasCubeRotated = false;
         MasterUI.anchorMax = new Vector2(1,2);
         MasterUI.anchorMin = new Vector2(0,2);
         MasterUI.sizeDelta = new Vector2(500,500);
@@ -36,55 +33,53 @@ public class TransitionScreen : MonoBehaviour {
 	
     public void Rotate()
     {
-        //Wait 3 seconds
-        StartCoroutine(RotateTo(transform, Quaternion.Euler(0, 90, 0), 1));
-        hasCubeRotated = true;
-        continueButton.enabled = false;
-    }
-    public void StoryScene()
-    {
-        continueButton.enabled = true; 
-
-        if (hasCubeRotated)
+        if(TextManager.LevelEnded)
         {
-            hasTransitionEnded = true;
+            StartCoroutine(RotateTo(transform, Quaternion.Euler(0, 0, 0), 1,true));
+            sD.updatePostGameConvo(TextManager.WonTheGame);
         }
-    }
-    public void GameScene()
-    {
-        EnableGameUI();
-
-    }
-    public void WinGameScene()
-    {
-        DisableGameUI();
-    }
-    public void LostGameScene()
-    {
-        DisableGameUI();
-    }
-    //Must be called after either the player loses or wins
-    public void ResetRotation()
-    {
-        float endYRotation = 180f;
-        float rotateSpeed = 5f;
-
-        //Might need tweeking
-        //if this method is called, it should should always reset the cube to the story bit
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, endYRotation, 0), Time.deltaTime * rotateSpeed);
-    }
-    IEnumerator RotateTo(Transform rotator, Quaternion endrotation, float TimeToRotate)
-    {
-        Quaternion baseRotation = rotator.rotation;
-        for(float i = 0; i < TimeToRotate ; i += Time.deltaTime)
+        else
         {
-            print("Now I'mHere");
-            rotator.rotation = Quaternion.Lerp(baseRotation, endrotation, i/TimeToRotate);
-            yield return new WaitForSeconds(Time.deltaTime);
+            StartCoroutine(RotateTo(transform, Quaternion.Euler(0, 90, 0), 1, false));
+            
         }
-        rotator.rotation = endrotation;
-        print("finished rotating");
-        EnableGameUI();
+        
+    }
+
+    public void displayPostGame()
+    {
+        displayPostGameScreen();
+    }
+
+    IEnumerator RotateTo(Transform rotator, Quaternion endrotation, float TimeToRotate, bool goingOut)
+    {
+        if(!goingOut)
+        {
+            
+            Quaternion baseRotation = rotator.rotation;
+            for(float i = 0; i < TimeToRotate ; i += Time.deltaTime)
+            {
+                rotator.rotation = Quaternion.Lerp(baseRotation, endrotation, i/TimeToRotate);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            rotator.rotation = endrotation;
+            continueButton.gameObject.SetActive(false);
+            EnableGameUI();
+        }
+        else
+        {
+            DisableGameUI();
+            doneHidingUI = false;
+            yield return new WaitUntil(DoneHidingUI);
+            Quaternion baseRotation = rotator.rotation;
+            for(float i = 0; i < TimeToRotate ; i += Time.deltaTime)
+            {
+                rotator.rotation = Quaternion.Lerp(baseRotation, endrotation, i/TimeToRotate);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            rotator.rotation = endrotation;
+            continueEndButton.gameObject.SetActive(true);
+        }
         
         
     }
@@ -97,33 +92,47 @@ public class TransitionScreen : MonoBehaviour {
         MasterUI.anchorMin = new Vector2(0,0);
         MasterUI.sizeDelta = new Vector2(500,500);
         print("UI is about to move");
-        StartCoroutine(MoveUIIntoPosition());
+        StartCoroutine(MoveUIIntoPosition(false));
         
 
     }
     public void DisableGameUI()
     {
         //Set MAasterUI Y ancors to 2
+        Vector3 temp = MasterUI.sizeDelta;
         MasterUI.anchorMax = new Vector2(1,2);
         MasterUI.anchorMin = new Vector2(0,2);
-        MasterUI.sizeDelta = new Vector2(500,500);
-        StartCoroutine(MoveUIIntoPosition());
+        MasterUI.sizeDelta = temp;
+        StartCoroutine(MoveUIIntoPosition(true));
         //Code here to disable the game's UI (Score, goal emoji etc)
     }
 
 
-    IEnumerator MoveUIIntoPosition()
+    IEnumerator MoveUIIntoPosition(bool gameOver)
     {
         float TimetoMove = 0.2f;
         Vector2 BaseSize = MasterUI.sizeDelta;
         for(float i = 0; i < TimetoMove ; i += Time.deltaTime)
         {
-            print("Now I'mHere");
+            print(i+" < "+TimetoMove);
             MasterUI.sizeDelta = Vector2.Lerp(BaseSize, Vector2.zero, i/TimetoMove);
             yield return new WaitForSeconds(Time.deltaTime);
         }
         MasterUI.sizeDelta = Vector2.zero;
-        sD.Continue();
+        if(!gameOver)
+        {
+            sD.Continue();
+        }
+        else
+        {
+            sD.Initializer.ParentGameBoard.SetActive(false);
+        }
+        doneHidingUI = true;
+    }
+
+    bool DoneHidingUI()
+    {
+        return doneHidingUI;
     }
     //Disable text's until they are needed
     //public void DisableText()

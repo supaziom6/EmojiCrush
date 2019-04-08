@@ -26,13 +26,17 @@ public class StoryProgreession : MonoBehaviour {
 	public Text Score;
 	public Text EndGameTitle;
 	private bool EndGameHandeled;
+	private TransitionScreen endGameReference;
+	private bool gameEndApproved;
 	// Use this for initialization
 	void Start () {
         // Take stuff from the story here and initialize it
-
+		gameEndApproved = false;
         GameObject temp = Instantiate(StoryDisplayer);
         temp.GetComponent<StoryDisplay>().Initializer = Initializer;
 		temp.GetComponent<TransitionScreen>().MasterUI = MasterUI;
+		endGameReference = temp.GetComponent<TransitionScreen>();
+		endGameReference.displayPostGameScreen = displyPostGameStats;
     }
 
 	/// <summary>
@@ -45,43 +49,49 @@ public class StoryProgreession : MonoBehaviour {
 
 	void Update()
 	{
-		if(!EndGameHandeled&&TextManager.LevelEnded)
+		if(!gameEndApproved&&!EndGameHandeled&&TextManager.LevelEnded)
 		{
-			if(TextManager.WonTheGame)
-			{
-				int currentLevelNumber = LoadLoadingInfo.currentLevel.LevelNumber;
-
-				SavingManager.PersistantData.HighestLevelComplete = currentLevelNumber;
-				if(SavingManager.PersistantData.HighScores == null)
-				{
-					SavingManager.PersistantData.HighScores = new List<int>();
-					SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
-				}
-				else if(SavingManager.PersistantData.HighScores.Count < currentLevelNumber)
-				{
-					SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
-				}
-				else	
-				{
-					SavingManager.PersistantData.HighScores[currentLevelNumber-1]  = Initializer.UIController.Score;
-				}
-				EndGameTitle.text = "Winner";
-			}
-			else
-			{
-				EndGameTitle.text = "You Lost";
-			}
-
-			if(LoadLoadingInfo.currentLevel.LevelNumber < SavingManager.PersistantData.HighestLevelComplete || LoadLoadingInfo.currentLevel.nextLevel == null)
-			{
-				nextLevel.interactable = false;
-			}
-			Score.text = Initializer.UIController.Score.ToString();
-
-			// Put end game code here based on Initializer.UIController.GoalReached
-			EndGameHandeled = true;
-			EndGameScreen.SetActive(true);
+			endGameReference.Rotate();
+			gameEndApproved = true;
 		}
+	}
+
+
+	public void displyPostGameStats()
+	{
+		if(TextManager.WonTheGame)
+		{
+			int currentLevelNumber = LoadLoadingInfo.currentLevel.LevelNumber;
+
+			SavingManager.PersistantData.HighestLevelComplete = currentLevelNumber;
+			if(SavingManager.PersistantData.HighScores == null)
+			{
+				SavingManager.PersistantData.HighScores = new List<int>();
+				SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
+			}
+			else if(SavingManager.PersistantData.HighScores.Count < currentLevelNumber)
+			{
+				SavingManager.PersistantData.HighScores.Add(Initializer.UIController.Score);
+			}
+			else	
+			{
+				SavingManager.PersistantData.HighScores[currentLevelNumber-1]  = Initializer.UIController.Score;
+			}
+			EndGameTitle.text = "Winner";
+		}
+		else
+		{
+			EndGameTitle.text = "You Lost";
+		}
+
+		if(LoadLoadingInfo.currentLevel.LevelNumber < SavingManager.PersistantData.HighestLevelComplete || LoadLoadingInfo.currentLevel.nextLevel == null)
+		{
+			nextLevel.interactable = false;
+		}
+		Score.text = Initializer.UIController.Score.ToString();
+
+		EndGameHandeled = true;
+		EndGameScreen.SetActive(true);
 	}
 
 	/// <summary>

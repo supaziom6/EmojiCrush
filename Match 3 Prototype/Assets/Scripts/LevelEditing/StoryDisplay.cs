@@ -13,22 +13,39 @@ public class StoryDisplay : MonoBehaviour
     //public GameObject emoji;
     public Text contactMessage;
     //public TextMesh playerResponse;
-    public Text correctResponse;
-    public Text inCorrectResponse;
+    public Text ResponsMesage;
+    public LevelInfo level;
+
+    public GameObject contacTextBox;
+    public GameObject PlayerTextBox;
+
 
     void Start()
     {
-        UpdateConversationInformation(LoadLoadingInfo.currentLevel);
+        level = LoadLoadingInfo.currentLevel;
+        UpdateConversationInformation();
     }
 
-    public void UpdateConversationInformation(LevelInfo i)
+    public void UpdateConversationInformation()
     {
+        PlayerTextBox.SetActive(false);
         //emoji = i.goalEmoji;
-        ContactImage.sprite = i.convo.contactImage;
-        PlayerImage.sprite = i.convo.playerImage;
-        contactMessage.text = ContactManager.ContactMessagesValue(i.convo.cN);
-        correctResponse.text = ContactManager.CorrectResponsesValue(i.convo.cN);
-        inCorrectResponse.text = ContactManager.IncorrectResponsesValue(i.convo.cN);
+        ContactImage.sprite = level.convo.contactImage;
+        PlayerImage.sprite = level.convo.playerImage;
+        contactMessage.text = ContactManager.ContactMessagesValue(level.convo.cN);
+        
+    }
+
+    public void updatePostGameConvo(bool won)
+    {
+        if(won)
+        {
+            ResponsMesage.text = ContactManager.CorrectResponsesValue(level.convo.cN);
+        }
+        else{
+            ResponsMesage.text = ContactManager.IncorrectResponsesValue(level.convo.cN);
+        }
+        PlayerTextBox.SetActive(true);
     }
 
 
