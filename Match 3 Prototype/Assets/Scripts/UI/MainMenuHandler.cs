@@ -18,6 +18,7 @@ public class MainMenuHandler : MonoBehaviour
     public GameObject ExitButton;
     public GameObject ShopButton;
     public GameObject TutorialButton;
+    public GameObject NightMode;
     // Parent Objects
     public GameObject OptionsMenu;
     // Sprites
@@ -65,6 +66,7 @@ public class MainMenuHandler : MonoBehaviour
     }
     public void Options()
     {
+        NightMode.SetActive(false);
         Levels.SetActive(false);
         Credits.SetActive(false);
         CreditsButton.SetActive(false);
@@ -96,10 +98,12 @@ public class MainMenuHandler : MonoBehaviour
         ExitButton.SetActive(true);
         DiamondImage.SetActive(true);
         ReturnButton.SetActive(false);
+        NightMode.SetActive(true);
     }
     public void ShowCredits()
     {
         OptionsBackground.SetActive(false);
+        NightMode.SetActive(false);
         Credits.SetActive(true);
         CreditsButton.SetActive(false);
         LevelButtons.SetActive(false);
