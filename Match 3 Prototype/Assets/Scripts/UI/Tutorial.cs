@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour {
 
     public void TutorialStart()
     {
+        Time.timeScale = 1;
         if(PlayButton != null)
             PlayButton.SetActive(false);
         TutorialButton.SetActive(false);
@@ -70,5 +71,6 @@ public class Tutorial : MonoBehaviour {
             ShopButton.SetActive(true);
         if (Title != null)
             Title.SetActive(true);
+        Time.timeScale = 0;
     }
 }
