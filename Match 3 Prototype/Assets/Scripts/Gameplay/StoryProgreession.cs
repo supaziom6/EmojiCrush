@@ -28,10 +28,12 @@ public class StoryProgreession : MonoBehaviour {
 	private bool EndGameHandeled;
 	private TransitionScreen endGameReference;
 	private bool gameEndApproved;
+    private bool gameHasStarted;
 	// Use this for initialization
 	void Start () {
         // Take stuff from the story here and initialize it
-		gameEndApproved = false;
+        gameHasStarted = false;
+        gameEndApproved = false;
         GameObject temp = Instantiate(StoryDisplayer);
         temp.GetComponent<StoryDisplay>().Initializer = Initializer;
 		temp.GetComponent<TransitionScreen>().MasterUI = MasterUI;
@@ -44,7 +46,11 @@ public class StoryProgreession : MonoBehaviour {
 	/// </summary>
 	void startGame()
 	{
-		Initializer.StartGame();
+        if (!gameHasStarted)
+        {
+            gameHasStarted = true;
+            Initializer.StartGame();
+        }
 	}
 
 	void Update()

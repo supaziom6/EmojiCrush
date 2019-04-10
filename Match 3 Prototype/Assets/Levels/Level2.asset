@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleEmoji:
   - emojiType: {fileID: 1856470453335922, guid: c9ecb842f11a5c944a6412865bbb44cc,
-      type: 2}
+      type: 3}
     spawnChance: 0
   - emojiType: {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7,
-      type: 2}
+      type: 3}
     spawnChance: 0
   - emojiType: {fileID: 1534002950380682, guid: 424743e965649ff40af04972fe25b2b2,
-      type: 2}
+      type: 3}
     spawnChance: 0
   - emojiType: {fileID: 1960918385276454, guid: 42501c9bc85ebde4595dc2191f2e17af,
-      type: 2}
+      type: 3}
     spawnChance: 0
   - emojiType: {fileID: 1830527637576042, guid: 29901ce58255e8246b94af3a1ab4a86e,
-      type: 2}
+      type: 3}
     spawnChance: 0
   xSize: 5
   ySize: 8
-  goalEmoji: {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7, type: 2}
+  goalEmoji: {fileID: 1422344894964160, guid: ba855b759f1ae6844a377a40049bece7, type: 3}
   RequiredEmojiAmmount: 20
   movesAvailable: 40
   nextLevel: {fileID: 11400000, guid: c7dcede29aa23f3498b81b194b494a44, type: 2}
@@ -38,5 +39,5 @@ MonoBehaviour:
   LevelNumber: 2
   convo:
     cN: 1
-    contactImage: {fileID: 0}
-    playerImage: {fileID: 0}
+    contactImage: {fileID: 21300000, guid: 6a7a484ed89867f4889a91e30672ece1, type: 3}
+    playerImage: {fileID: 21300000, guid: 4720b2e84ab8ba040815e34ae0e212ab, type: 3}
