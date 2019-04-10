@@ -48,5 +48,5 @@ MonoBehaviour:
   LevelNumber: 6
   convo:
     cN: 5
-    contactImage: {fileID: 21300000, guid: cba2a81a9fae8684aadef3cbf6829e44, type: 3}
+    contactImage: {fileID: 21300000, guid: 6cbb473e0a8370e448f3d8ad8658ed2a, type: 3}
     playerImage: {fileID: 21300000, guid: 30ba538dceade8e4c80022958d7b521a, type: 3}
